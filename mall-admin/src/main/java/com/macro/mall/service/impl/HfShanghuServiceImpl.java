@@ -9,6 +9,13 @@ import org.springframework.stereotype.Service;
 public class HfShanghuServiceImpl implements HfShanghuService {
     @Override
     public CommonResult register() {
+
+
+
+
+
+
+
         return null;
     }
 

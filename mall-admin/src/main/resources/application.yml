@@ -16,6 +16,16 @@ mybatis:
     - classpath:dao/*.xml
     - classpath*:com/**/mapper/*.xml
 
+http_pool:
+  max_total: 200
+  default_max_per_route: 100
+  connect_timeout: 5000
+  connection_request_timeout: 1000
+  socket_timeout: 65000
+  validate_after_inactivity: 2000
+
+
+
 jwt:
   tokenHeader: Authorization #JWT存储的请求头
   secret: mall-admin-secret #JWT加解密使用的密钥
@@ -34,6 +44,7 @@ secure:
   ignored:
     urls: #安全路径白名单
       - /**/** # todo remove for production
+      - /**/**/**
       - /swagger-ui/
       - /swagger-resources/**
       - /**/v2/api-docs
@@ -63,3 +74,7 @@ aliyun:
     callback: http://39.98.190.128:8080/aliyun/oss/callback # 文件上传成功后的回调地址
     dir:
       prefix: mall/images/ # 上传文件夹路径前缀
+
+HF:
+  setProcutId: EDUSTD
+  setRsaPublicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAt5hd0XSAusIkRYMEXv6ZHlCU9XIQsgJWmnarxJamVQ/4hjCeefUoD/PX7cH+pmw6IMhDYLSrbM8Jdcfz4cxZl1cOLEchpYEkRehr6hER1/bJqWTLDDEWzPSWqcwpQLCW70XueJh2LHu/u2EillRUf8RT4aiO4zobujlUhblSgAYI7M8/wH2ehva8rlAQ2go8evhZcWW1WafW5IjmXbYqAyXF/swukG4tTFAXrtwdUVZAT4jJphVfdO0UbxMng4Kv9S/K9Hh+H1mtwb2SKJwAmfTWMt9YVJFk00jPhFJsxqliGxY0TMjb9wC2Y8A1eElZWP4VcWQoKe+Sx1kg37KolQIDAQAB
