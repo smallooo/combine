@@ -1,21 +1,14 @@
 package com.macro.mall.controller.huifu;
 
-
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.aliyun.oss.model.UploadFileRequest;
 
 import com.huifu.bspay.sdk.opps.client.BasePayClient;
 import com.huifu.bspay.sdk.opps.core.exception.BasePayException;
-import com.huifu.bspay.sdk.opps.core.request.BaseRequest;
 import com.huifu.bspay.sdk.opps.core.request.V2SupplementaryPictureRequest;
 import com.huifu.bspay.sdk.opps.core.utils.DateTools;
-import com.huifu.bspay.sdk.opps.core.utils.SequenceTools;
 import com.macro.mall.common.api.CommonResult;
 import com.macro.mall.dto.UmsAdminParam;
-import com.macro.mall.model.UmsAdmin;
 import com.macro.mall.service.HfShanghuService;
-import com.macro.mall.service.UmsAdminService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -29,16 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
-
-
 
 /**
  * 用户管理Controller
@@ -59,8 +43,8 @@ public class HfUserController {
     @ApiOperation(value = "商户统一进件")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult register(@Validated @RequestBody UmsAdminParam umsAdminParam) {
-        CommonResult umsAdmin = hfShanghuService.register();
+    public CommonResult register(@Validated @RequestBody UmsAdminParam umsAdminParam) throws Exception {
+        CommonResult umsAdmin = hfShanghuService.interateRegRequest();
         if (umsAdmin == null) {
             return CommonResult.failed();
         }
@@ -70,8 +54,8 @@ public class HfUserController {
     @ApiOperation(value = "商户基本信息修改")
     @RequestMapping(value = "/modify", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult statusChecking(@Validated @RequestBody UmsAdminParam umsAdminParam) {
-        CommonResult umsAdmin = hfShanghuService.register();
+    public CommonResult statusChecking(@Validated @RequestBody UmsAdminParam umsAdminParam) throws Exception {
+        CommonResult umsAdmin = hfShanghuService.interateRegRequest();
         if (umsAdmin == null) {
             return CommonResult.failed();
         }
@@ -231,5 +215,29 @@ public class HfUserController {
 
         return null;
     }
+
+
+
+
+    @ApiOperation(value = "创建代理商")
+    @RequestMapping(value = "/createagnet", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult createAgnet(@Validated @RequestBody UmsAdminParam umsAdminParam) {
+        // 处理前端传入信息  level = accountlevel + 1  parent
+        // 开通HF账号  设置代理商角色
+        // 开通个人商户信息         开通支付宝支付信息
+        // 记录代理商信息
+
+
+
+
+
+        //CommonResult umsAdmin = hfShanghuService.integrateregrequest();
+//        if (umsAdmin == null) {
+//            return CommonResult.failed();
+//        }
+        return CommonResult.success("");
+    }
+
 
 }

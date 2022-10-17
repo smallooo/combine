@@ -30,7 +30,7 @@ public class HfShanghuController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult register(@RequestBody List<PmsSkuStock> skuStockList) {
-        CommonResult result = hfShanghuService.register();
+        CommonResult result = hfShanghuService.integrateregrequest();
         return CommonResult.success(1);
     }
 

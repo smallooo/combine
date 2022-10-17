@@ -1982,6 +1982,7 @@ INSERT INTO `ums_admin_role_relation` VALUES ('27', '6', '1');
 INSERT INTO `ums_admin_role_relation` VALUES ('28', '7', '2');
 INSERT INTO `ums_admin_role_relation` VALUES ('29', '1', '5');
 INSERT INTO `ums_admin_role_relation` VALUES ('30', '4', '5');
+INSERT INTO `ums_admin_role_relation` VALUES ('31', '4', '5');
 
 -- ----------------------------
 -- Table structure for ums_growth_change_history
@@ -2437,9 +2438,10 @@ CREATE TABLE `ums_role` (
 -- ----------------------------
 -- Records of ums_role
 -- ----------------------------
-INSERT INTO `ums_role` VALUES ('1', '商品管理员', '只能查看及操作商品', '0', '2020-02-03 16:50:37', '1', '0');
-INSERT INTO `ums_role` VALUES ('2', '订单管理员', '只能查看及操作订单', '0', '2018-09-30 15:53:45', '1', '0');
-INSERT INTO `ums_role` VALUES ('5', '超级管理员', '拥有所有查看和操作功能', '0', '2020-02-02 15:11:05', '1', '0');
+INSERT INTO `ums_role` VALUES ('1', '代理商管理员', '查看及操作下级代理商和商户', '0', '2020-02-03 16:50:37', '1', '0');
+INSERT INTO `ums_role` VALUES ('2', '商务经理管理员', '查看代理商和商户和收支明细', '0', '2018-09-30 15:53:45', '1', '0');
+INSERT INTO `ums_role` VALUES ('5', '财务管理员', '查看及操作提现记录', '0', '2018-09-30 15:53:45', '1', '0');
+INSERT INTO `ums_role` VALUES ('10', '超级管理员', '拥有所有查看和操作功能', '0', '2020-02-02 15:11:05', '1', '0');
 
 -- ----------------------------
 -- Table structure for ums_role_menu_relation
