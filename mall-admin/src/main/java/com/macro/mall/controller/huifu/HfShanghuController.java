@@ -56,29 +56,53 @@ public class HfShanghuController {
 //        // 银行卡绑定手机号
 //        dto.put("mp", "13567889160");
 
+//        JSONObject dto = new JSONObject();
+//        // 结算类型 1 对私  2 对私非法人
+//        dto.put("card_type", "1");
+//        // 银行所在省
+//        dto.put("prov_id", "330000");
+//        // 银行所在市
+//        dto.put("area_id", "331000");
+//        // 结算账户名
+//        dto.put("card_name", "陈盼");
+//        // 结算账号
+//        dto.put("card_no", "6230580000298182796");
+//        // 持卡人证件有效期类型
+//        dto.put("cert_validity_type", "0");
+//        // 持卡人证件有效期（起始）
+//        dto.put("cert_begin_date", "20190328");
+//        // 持卡人证件有效期（截止）
+//        dto.put("cert_end_date", "20290328");
+//        // 持卡人证件号码
+//        dto.put("cert_no", "331002199304153120");
+//        // 持卡人证件类型
+//        dto.put("cert_type", "00");
+//        // 银行卡绑定手机号
+//        dto.put("mp", "18911808760");
+
         JSONObject dto = new JSONObject();
         // 结算类型 1 对私  2 对私非法人
         dto.put("card_type", "1");
         // 银行所在省
-        dto.put("prov_id", "330000");
+        dto.put("prov_id", "350000");
         // 银行所在市
-        dto.put("area_id", "331000");
+        dto.put("area_id", "350600");
         // 结算账户名
-        dto.put("card_name", "陈盼");
+        dto.put("card_name", "李少伟");
         // 结算账号
-        dto.put("card_no", "6230580000298182796");
+        dto.put("card_no", "6227001852910280326");
         // 持卡人证件有效期类型
         dto.put("cert_validity_type", "0");
         // 持卡人证件有效期（起始）
-        dto.put("cert_begin_date", "20190328");
+        dto.put("cert_begin_date", "20200724");
         // 持卡人证件有效期（截止）
-        dto.put("cert_end_date", "20290328");
+        dto.put("cert_end_date", "20400724");
         // 持卡人证件号码
-        dto.put("cert_no", "331002199304153120");
+        dto.put("cert_no", "350628198306200079");
         // 持卡人证件类型
         dto.put("cert_type", "00");
         // 银行卡绑定手机号
-        dto.put("mp", "18911808760");
+        dto.put("mp", "15606044444");
 
         return dto.toJSONString();
     }
@@ -97,16 +121,23 @@ public class HfShanghuController {
 //        dto.put("contact_cert_no", "331002198511211018");
 
 
+//        // 联系人姓名
+//        dto.put("contact_name", "陈盼");
+//        // 联系人手机号
+//        dto.put("contact_mobile_no", "18911808760");
+//        // 联系人电子邮箱
+//        dto.put("contact_email", "pan.chen@icloud.com");
+//        // 联系人身份证号
+//        dto.put("contact_cert_no", "331002199304153120");
+
         // 联系人姓名
-        dto.put("contact_name", "陈盼");
+        dto.put("contact_name", "李少伟");
         // 联系人手机号
-        dto.put("contact_mobile_no", "18911808760");
+        dto.put("contact_mobile_no", "15606044444");
         // 联系人电子邮箱
         dto.put("contact_email", "pan.chen@icloud.com");
         // 联系人身份证号
-        dto.put("contact_cert_no", "331002199304153120");
-
-        dto.put("login_name", "aaajwnfefnian");
+        dto.put("contact_cert_no", "350628198306200079");
 
         return dto.toJSONString();
     }
@@ -114,7 +145,7 @@ public class HfShanghuController {
     @Autowired
     private HfShanghuService hfShanghuService;
 
-    @ApiOperation("商户注册")
+    @ApiOperation("个人商户注册")
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult register() throws Exception {
@@ -125,52 +156,34 @@ public class HfShanghuController {
         request.setReqSeqId(SequenceTools.getReqSeqId32());
         // 请求日期
         request.setReqDate(DateTools.getCurrentDateYYYYMMDD());
-//        // 渠道商汇付id
-//        request.setUpperHuifuId("6666000122751000");
-//        // 公司类型 0 个人商户
-//        request.setEntType("0");
-//        // 商户名称
-//        request.setRegName("何东明");
-//        // 经营类型 1 实体
-//        request.setBusiType("1");
-//        // 经营详细地址
-//        request.setDetailAddr("深圳市宝安区新安街道海旺社区N26区海秀路2021号荣超滨海大厦A座2111");
-//        // 经营省
-//        request.setProvId("310000");
-//        // 经营市
-//        request.setAreaId("310100");
-//        // 经营区
-//        request.setDistrictId("310104");
-
-                // 渠道商汇付id
+        // 渠道商汇付id
         request.setUpperHuifuId("6666000122751000");
         // 公司类型 0 个人商户
         request.setEntType("0");
         // 商户名称
-        request.setRegName("陈盼");
+        request.setRegName("李少伟");
         // 经营类型 1 实体
         request.setBusiType("1");
         // 经营详细地址
-        request.setDetailAddr("浙江省台州市椒江区滨海大道1688号");
+        request.setDetailAddr("福建省漳州市龙文区中山东路1188号");
         // 经营省
-        request.setProvId("330000");
+        request.setProvId("350000");
         // 经营市
-        request.setAreaId("331000");
+        request.setAreaId("350600");
         // 经营区
-        request.setDistrictId("331002");
+        request.setDistrictId("350603");
         // 联系人信息
         request.setContactInfo(getContactInfo());
+
+
         // 卡信息配置实体
         request.setCardInfo(getCardInfo());
-
         // 设置非必填字段
         Map<String, Object> extendInfoMap = getExtendInfos();
         request.setExtendInfo(extendInfoMap);
-
         // 3. 发起API调用
         Map<String, Object> response = doExecute(request);
         System.out.println("返回数据:" + JSONObject.toJSONString(response));
-
         return CommonResult.success(1);
     }
 
@@ -181,18 +194,6 @@ public class HfShanghuController {
                                                         @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                                         @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
        // CommonResult subjectList = hfShanghuService.getShanghuDetail();
-        //return CommonResult.success(CommonPage.restPage(subjectList));
-        return CommonResult.success(1);
-    }
-
-
-    @ApiOperation(value = "商户业务开通")
-    @RequestMapping(value = "/busiopen", method = RequestMethod.GET)
-    @ResponseBody
-    public CommonResult busiopen(@RequestParam(value = "keyword", required = false) String keyword,
-                                @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-                                @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
-        // CommonResult subjectList = hfShanghuService.getShanghuDetail();
         //return CommonResult.success(CommonPage.restPage(subjectList));
         return CommonResult.success(1);
     }
@@ -252,12 +253,9 @@ public class HfShanghuController {
         // 取现手续费率（%）fix_amt与fee_rate至少填写一项，单位%，需保留小数点后两位，取值范围[0.00,100.00]，不收费请填写0.00；&lt;font color&#x3D;&quot;green&quot;&gt;示例值：0.05&lt;/font&gt;&lt;br/&gt;注：如果fix_amt与fee_rate都填写了则手续费&#x3D;fix_amt+支付金额*fee_rate
         dto.put("fee_rate", "0.05");
         // 提现手续费（固定/元）
-        dto.put("fix_amt", "1");
+        dto.put("fix_amt", "0.01");
         // 是否交易手续费外扣
         dto.put("out_fee_flag", "2");
-        // 手续费承担方
-       // dto.put("out_fee_huifu_id", "");
-
         JSONArray dtoList = new JSONArray();
         dtoList.add(dto);
         return dtoList.toJSONString();
@@ -308,9 +306,9 @@ public class HfShanghuController {
 //        // 公司照片三
 //        dto.put("store_cashier_desk_pic", "2020022204231214021970311");
         // 法人身份证反面
-        dto.put("legal_cert_back_pic", "09b821a3-efc4-385d-9be2-aca353f65fb4");
+        dto.put("legal_cert_back_pic", "9b73a96e-12b6-37b9-916a-59a611713b80");
         // 法人身份证正面
-        dto.put("legal_cert_front_pic", "11789b79-a6b5-38ed-a61f-59593cc4a7cf");
+        dto.put("legal_cert_front_pic", "856ec6fa-5632-3646-8e9f-4ee52cd0a7b1");
 //        // 营业执照图片
 //        dto.put("license_pic", "36ac0355-a54d-3178-b4b5-9aecd07367e6");
 //        // 组织机构代码证
@@ -318,21 +316,21 @@ public class HfShanghuController {
 //        // 开户许可证
 //        dto.put("reg_acct_pic", "d1d50615-0ff4-3488-b415-0ac21a556c4a");
         // 结算卡反面
-        dto.put("settle_card_back_pic", "27f40a93-b11e-36e0-a0b4-68358c746569");
+        dto.put("settle_card_back_pic", "e5ffea4e-0fb6-3091-8f37-5d828012434a");
         // 结算卡正面
-        dto.put("settle_card_front_pic", "c0cca9bd-64f3-362a-bfa9-f839b41634a2");
+        dto.put("settle_card_front_pic", "1588b98d-9180-3d47-a2ca-d741a85ba939");
         // 结算人身份证反面
-        dto.put("settle_cert_back_pic", "09b821a3-efc4-385d-9be2-aca353f65fb4");
+        dto.put("settle_cert_back_pic", "9b73a96e-12b6-37b9-916a-59a611713b80");
         // 结算人身份证正面
-        dto.put("settle_cert_front_pic", "11789b79-a6b5-38ed-a61f-59593cc4a7cf");
+        dto.put("settle_cert_front_pic", "856ec6fa-5632-3646-8e9f-4ee52cd0a7b1");
 //        // 税务登记证
 //        dto.put("tax_reg_pic", "d13832f9-2244-3a3b-ba09-936b100a8ce9");
         // 实名登记证书照片
-        dto.put("cert_pic", "11789b79-a6b5-38ed-a61f-59593cc4a7cf");
+        dto.put("cert_pic", "856ec6fa-5632-3646-8e9f-4ee52cd0a7b1");
         // 个人商户身份证件正面照片
-        dto.put("identification_front_pic", "11789b79-a6b5-38ed-a61f-59593cc4a7cf");
+        dto.put("identification_front_pic", "856ec6fa-5632-3646-8e9f-4ee52cd0a7b1");
         // 个人商户身份证件反面照片
-        dto.put("identification_back_pic", "09b821a3-efc4-385d-9be2-aca353f65fb4");
+        dto.put("identification_back_pic", "9b73a96e-12b6-37b9-916a-59a611713b80");
 //        // 单位证明函照片
 //        dto.put("company_prove_pic", "36ac0355-a54d-3178-b4b5-9aecd07367e6");
 //        // 金融机构许可证图片1
@@ -346,9 +344,9 @@ public class HfShanghuController {
 //        // 金融机构许可证图片5
 //        dto.put("finance_license_pic5", "2e74d95f-fd16-3766-ab39-c407c5b1c004");
         // 联系人身份证正面照
-        dto.put("contact_id_front_pic", "11789b79-a6b5-38ed-a61f-59593cc4a7cf");
+        dto.put("contact_id_front_pic", "856ec6fa-5632-3646-8e9f-4ee52cd0a7b1");
         // 联系人身份证反面照
-        dto.put("contact_id_back_pic", "09b821a3-efc4-385d-9be2-aca353f65fb4");
+        dto.put("contact_id_back_pic", "9b73a96e-12b6-37b9-916a-59a611713b80");
 //        // 联系人护照人像面
 //        dto.put("contact_passport_img_pic", "8958a61c-970c-3ad8-a091-80238ef80a8b");
 //        // 联系人证件照正面
@@ -376,9 +374,9 @@ public class HfShanghuController {
 //        // 法人其他证件照片
 //        dto.put("legal_other_cert_pic", "562511a9-aa29-3e9e-9647-a97430ea9766");
         // 持卡人身份证人像面
-        dto.put("cert_front_pic", "11789b79-a6b5-38ed-a61f-59593cc4a7cf");
+        dto.put("cert_front_pic", "856ec6fa-5632-3646-8e9f-4ee52cd0a7b1");
         // 持卡人身份证国徽面
-        dto.put("cert_back_pic", "09b821a3-efc4-385d-9be2-aca353f65fb4");
+        dto.put("cert_back_pic", "9b73a96e-12b6-37b9-916a-59a611713b80");
 //        // 持卡人护照人像面
 //        dto.put("cert_passport_img_pic", "a501f0c6-a9ee-30d0-aedb-cec882da6d21");
 //        // 持卡人港澳台通行证正面
@@ -386,9 +384,9 @@ public class HfShanghuController {
 //        // 持卡人其它证件照片
 //        dto.put("cert_other_pic", "398bbd13-40c9-37ce-8265-f6c1ecd317fa");
         // 签约人身份证照片-人像面
-        dto.put("sign_identity_front_file_id", "11789b79-a6b5-38ed-a61f-59593cc4a7cf");
+        dto.put("sign_identity_front_file_id", "856ec6fa-5632-3646-8e9f-4ee52cd0a7b1");
 //        // 签约人身份证照片-国徽面
-        dto.put("sign_identity_back_file_id", "09b821a3-efc4-385d-9be2-aca353f65fb4");
+        dto.put("sign_identity_back_file_id", "9b73a96e-12b6-37b9-916a-59a611713b80");
 //        // 签约人法人授权书
 //        dto.put("sign_auth_file_id", "");
 //        // 支付宝授权函照片
@@ -432,6 +430,9 @@ public class HfShanghuController {
 //        extendInfoMap.put("balance_pay_config", getBalancePayConfig());
 //        // 花呗分期费率配置实体
 //        extendInfoMap.put("hb_fq_fee_config", getHbFqFeeConfig());
+        // 管理员账号
+        extendInfoMap.put("login_name", "fhuhwasywfsxwswf1");
+
         // 文件列表
         extendInfoMap.put("file_info", getFileInfo());
         // 异步消息接收地址(审核)

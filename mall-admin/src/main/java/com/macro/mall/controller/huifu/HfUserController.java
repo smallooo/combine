@@ -82,7 +82,7 @@ public class HfUserController {
 
 
         // 3. 发起API调用
-        Map<String, Object> response = BasePayClient.upload(request, new File(directory +"/WechatIMG115.jpeg"));
+        Map<String, Object> response = BasePayClient.upload(request, new File(directory +"/204.jpeg"));
         System.out.println("返回数据:" + JSONObject.toJSONString(response));
 
         return null;
