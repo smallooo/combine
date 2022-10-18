@@ -60,13 +60,13 @@ public class HfShanghuController {
         // 结算类型 1 对私  2 对私非法人
         dto.put("card_type", "1");
         // 银行所在省
-        dto.put("prov_id", "310000");
+        dto.put("prov_id", "330000");
         // 银行所在市
-        dto.put("area_id", "310100");
+        dto.put("area_id", "331000");
         // 结算账户名
         dto.put("card_name", "陈盼");
         // 结算账号
-        dto.put("card_no", "6214835765798853");
+        dto.put("card_no", "6230580000298182796");
         // 持卡人证件有效期类型
         dto.put("cert_validity_type", "0");
         // 持卡人证件有效期（起始）
@@ -98,13 +98,15 @@ public class HfShanghuController {
 
 
         // 联系人姓名
-        dto.put("contact_name", "何东明");
+        dto.put("contact_name", "陈盼");
         // 联系人手机号
-        dto.put("contact_mobile_no", "13567889160");
+        dto.put("contact_mobile_no", "18911808760");
         // 联系人电子邮箱
-        dto.put("contact_email", "dongming1.he@icloud.com");
+        dto.put("contact_email", "pan.chen@icloud.com");
         // 联系人身份证号
-        dto.put("contact_cert_no", "331002198511211018");
+        dto.put("contact_cert_no", "331002199304153120");
+
+        dto.put("login_name", "aaajwnfefnian");
 
         return dto.toJSONString();
     }
@@ -123,30 +125,47 @@ public class HfShanghuController {
         request.setReqSeqId(SequenceTools.getReqSeqId32());
         // 请求日期
         request.setReqDate(DateTools.getCurrentDateYYYYMMDD());
-        // 渠道商汇付id
+//        // 渠道商汇付id
+//        request.setUpperHuifuId("6666000122751000");
+//        // 公司类型 0 个人商户
+//        request.setEntType("0");
+//        // 商户名称
+//        request.setRegName("何东明");
+//        // 经营类型 1 实体
+//        request.setBusiType("1");
+//        // 经营详细地址
+//        request.setDetailAddr("深圳市宝安区新安街道海旺社区N26区海秀路2021号荣超滨海大厦A座2111");
+//        // 经营省
+//        request.setProvId("310000");
+//        // 经营市
+//        request.setAreaId("310100");
+//        // 经营区
+//        request.setDistrictId("310104");
+
+                // 渠道商汇付id
         request.setUpperHuifuId("6666000122751000");
         // 公司类型 0 个人商户
         request.setEntType("0");
         // 商户名称
-        request.setRegName("何东明");
+        request.setRegName("陈盼");
         // 经营类型 1 实体
         request.setBusiType("1");
         // 经营详细地址
-        request.setDetailAddr("深圳市宝安区新安街道海旺社区N26区海秀路2021号荣超滨海大厦A座2111");
+        request.setDetailAddr("浙江省台州市椒江区滨海大道1688号");
         // 经营省
-        request.setProvId("310000");
+        request.setProvId("330000");
         // 经营市
-        request.setAreaId("310100");
+        request.setAreaId("331000");
         // 经营区
-        request.setDistrictId("310104");
+        request.setDistrictId("331002");
         // 联系人信息
         request.setContactInfo(getContactInfo());
         // 卡信息配置实体
         request.setCardInfo(getCardInfo());
 
         // 设置非必填字段
-//        Map<String, Object> extendInfoMap = getExtendInfos();
-//        request.setExtendInfo(extendInfoMap);
+        Map<String, Object> extendInfoMap = getExtendInfos();
+        request.setExtendInfo(extendInfoMap);
 
         // 3. 发起API调用
         Map<String, Object> response = doExecute(request);
@@ -206,17 +225,17 @@ public class HfShanghuController {
         // 手续费（%）
         dto.put("fee_rate", "0.38");
         // 商户经营类目
-        dto.put("mcc", "");
-        // 子渠道号
-        dto.put("pay_channel_id", "");
-        // 拟申请的间联商户等级
-        dto.put("indirect_level", "");
+        dto.put("mcc", "5309");
+//        // 子渠道号
+//        dto.put("pay_channel_id", "JQF00001");
+//        // 拟申请的间联商户等级
+//        dto.put("indirect_level", "INDIRECT_LEVEL_M3");
         // 交易手续费外扣时的账户类型
-        dto.put("out_fee_acct_type", "");
-        // 交易手续费外扣汇付ID
-        dto.put("out_fee_huifuid", "");
+//        dto.put("out_fee_acct_type", "01");
+//        // 交易手续费外扣汇付ID
+//        dto.put("out_fee_huifuid", "6666000105215340");
         // 是否交易手续费外扣
-        dto.put("out_fee_flag", "");
+        dto.put("out_fee_flag", "2");
 
         JSONArray dtoList = new JSONArray();
         dtoList.add(dto);
@@ -227,17 +246,17 @@ public class HfShanghuController {
     private static String getCashConfig() {
         JSONObject dto = new JSONObject();
         // 是否开通取现
-        dto.put("switch_state", "test");
+        dto.put("switch_state", "1");
         // 业务类型
-        dto.put("cash_type", "test");
+        dto.put("cash_type", "T1");
         // 取现手续费率（%）fix_amt与fee_rate至少填写一项，单位%，需保留小数点后两位，取值范围[0.00,100.00]，不收费请填写0.00；&lt;font color&#x3D;&quot;green&quot;&gt;示例值：0.05&lt;/font&gt;&lt;br/&gt;注：如果fix_amt与fee_rate都填写了则手续费&#x3D;fix_amt+支付金额*fee_rate
-        dto.put("fee_rate", "test");
+        dto.put("fee_rate", "0.05");
         // 提现手续费（固定/元）
-        dto.put("fix_amt", "");
+        dto.put("fix_amt", "1");
         // 是否交易手续费外扣
-        dto.put("out_fee_flag", "");
+        dto.put("out_fee_flag", "2");
         // 手续费承担方
-        dto.put("out_fee_huifu_id", "");
+       // dto.put("out_fee_huifu_id", "");
 
         JSONArray dtoList = new JSONArray();
         dtoList.add(dto);
@@ -274,6 +293,111 @@ public class HfShanghuController {
         return dto.toJSONString();
     }
 
+    private static String getFileInfo() {
+        JSONObject dto = new JSONObject();
+//        // D1结算协议图片
+//        dto.put("settle_agree_pic", "测试2022062910491030461");
+//        // 授权委托书
+//        dto.put("auth_enturst_pic", "0215232e-b595-368e-8a68-8c15b04f875b");
+//        // 商务协议
+//        dto.put("ba_pic", "d1451277-85c6-3177-ac3d-a8be47b9ae9d");
+//        // 公司照片一
+//        dto.put("store_header_pic", "d1451277-85c6-3177-ac3d-a8be47b9ae9d");
+//        // 公司照片二
+//        dto.put("store_indoor_pic", "009cd33c-01be-31f0-8e8c-615460949b96");
+//        // 公司照片三
+//        dto.put("store_cashier_desk_pic", "2020022204231214021970311");
+        // 法人身份证反面
+        dto.put("legal_cert_back_pic", "09b821a3-efc4-385d-9be2-aca353f65fb4");
+        // 法人身份证正面
+        dto.put("legal_cert_front_pic", "11789b79-a6b5-38ed-a61f-59593cc4a7cf");
+//        // 营业执照图片
+//        dto.put("license_pic", "36ac0355-a54d-3178-b4b5-9aecd07367e6");
+//        // 组织机构代码证
+//        dto.put("org_code_pic", "5bd7fea7-c8e4-31fc-a672-755adbcd4a4c");
+//        // 开户许可证
+//        dto.put("reg_acct_pic", "d1d50615-0ff4-3488-b415-0ac21a556c4a");
+        // 结算卡反面
+        dto.put("settle_card_back_pic", "27f40a93-b11e-36e0-a0b4-68358c746569");
+        // 结算卡正面
+        dto.put("settle_card_front_pic", "c0cca9bd-64f3-362a-bfa9-f839b41634a2");
+        // 结算人身份证反面
+        dto.put("settle_cert_back_pic", "09b821a3-efc4-385d-9be2-aca353f65fb4");
+        // 结算人身份证正面
+        dto.put("settle_cert_front_pic", "11789b79-a6b5-38ed-a61f-59593cc4a7cf");
+//        // 税务登记证
+//        dto.put("tax_reg_pic", "d13832f9-2244-3a3b-ba09-936b100a8ce9");
+        // 实名登记证书照片
+        dto.put("cert_pic", "11789b79-a6b5-38ed-a61f-59593cc4a7cf");
+        // 个人商户身份证件正面照片
+        dto.put("identification_front_pic", "11789b79-a6b5-38ed-a61f-59593cc4a7cf");
+        // 个人商户身份证件反面照片
+        dto.put("identification_back_pic", "09b821a3-efc4-385d-9be2-aca353f65fb4");
+//        // 单位证明函照片
+//        dto.put("company_prove_pic", "36ac0355-a54d-3178-b4b5-9aecd07367e6");
+//        // 金融机构许可证图片1
+//        dto.put("finance_license_pic1", "ff647802-0ba1-36c0-952e-e94623cf0e7c");
+//        // 金融机构许可证图片2
+//        dto.put("finance_license_pic2", "42cecea7-1aef-33fb-bf04-c2bc621b0302");
+//        // 金融机构许可证图片3
+//        dto.put("finance_license_pic3", "48157e9b-44cc-33e1-8169-a0fe8c1c0848");
+//        // 金融机构许可证图片4
+//        dto.put("finance_license_pic4", "ca1cbd42-b14e-326b-9aef-288d45cf8b42");
+//        // 金融机构许可证图片5
+//        dto.put("finance_license_pic5", "2e74d95f-fd16-3766-ab39-c407c5b1c004");
+        // 联系人身份证正面照
+        dto.put("contact_id_front_pic", "11789b79-a6b5-38ed-a61f-59593cc4a7cf");
+        // 联系人身份证反面照
+        dto.put("contact_id_back_pic", "09b821a3-efc4-385d-9be2-aca353f65fb4");
+//        // 联系人护照人像面
+//        dto.put("contact_passport_img_pic", "8958a61c-970c-3ad8-a091-80238ef80a8b");
+//        // 联系人证件照正面
+//        dto.put("contact_cert_front_pic", "75ef9587-2faf-3b2c-820b-9ea447e754e3");
+//        // 联系人证件照反面
+//        dto.put("contact_cert_back_pic", "d42c010b-9316-369f-80ed-4ce4bda13602");
+//        // 微信业务办理授权函
+//        dto.put("contact_wx_busi_auth_pic", "49ac7d9b-851c-31b4-8b21-2983ea97b98c");
+//        // 行业经营许可证资质照片一
+//        dto.put("industry_busi_license_pic1", "1931c359-e42f-3e5f-875e-e22fc695aefd");
+//        // 行业经营许可证资质照片二
+//        dto.put("industry_busi_license_pic2", "0ddea6a0-6991-39ac-a68d-155d5d00d840");
+//        // 行业经营许可证资质照片三
+//        dto.put("industry_busi_license_pic3", "b5d77b0f-391f-3447-9843-386fc4096649");
+//        // 行业经营许可证资质照片四
+//        dto.put("industry_busi_license_pic4", "2af4514d-3d9c-3545-bc45-2424e80ab7e4");
+//        // 行业经营许可证资质照片五
+//        dto.put("industry_busi_license_pic5", "c3421d61-df60-3b2d-bcf1-e3709da867f2");
+//        // 行业经营许可证资质照片六
+//        dto.put("industry_busi_license_pic6", "b56c5cb1-4724-3574-ae38-7e8d5510b607");
+//        // 法人护照人像面
+//        dto.put("legal_passport_img_pic", "893dd8c7-c0a6-3cbd-a6c2-a52baf40398c");
+//        // 法人港澳台通行证正面
+//        dto.put("legal_hk_aom_front_pic", "8cb60559-e51c-344e-bcbf-96f3011acbd4");
+//        // 法人其他证件照片
+//        dto.put("legal_other_cert_pic", "562511a9-aa29-3e9e-9647-a97430ea9766");
+        // 持卡人身份证人像面
+        dto.put("cert_front_pic", "11789b79-a6b5-38ed-a61f-59593cc4a7cf");
+        // 持卡人身份证国徽面
+        dto.put("cert_back_pic", "09b821a3-efc4-385d-9be2-aca353f65fb4");
+//        // 持卡人护照人像面
+//        dto.put("cert_passport_img_pic", "a501f0c6-a9ee-30d0-aedb-cec882da6d21");
+//        // 持卡人港澳台通行证正面
+//        dto.put("cert_hk_aom_front_pic", "cdcae795-6a9d-32f8-8033-d7bad4008974");
+//        // 持卡人其它证件照片
+//        dto.put("cert_other_pic", "398bbd13-40c9-37ce-8265-f6c1ecd317fa");
+        // 签约人身份证照片-人像面
+        dto.put("sign_identity_front_file_id", "11789b79-a6b5-38ed-a61f-59593cc4a7cf");
+//        // 签约人身份证照片-国徽面
+        dto.put("sign_identity_back_file_id", "09b821a3-efc4-385d-9be2-aca353f65fb4");
+//        // 签约人法人授权书
+//        dto.put("sign_auth_file_id", "");
+//        // 支付宝授权函照片
+//        dto.put("contact_ali_busi_auth_pic", "");
+
+        return dto.toJSONString();
+    }
+
+
 
     private static Map<String, Object> getExtendInfos() {
         // 设置非必填字段
@@ -286,10 +410,10 @@ public class HfShanghuController {
 //        extendInfoMap.put("agreement_info", getAgreementInfo());
 //        // 支付补贴
 //        extendInfoMap.put("combine_pay_config", getCombinePayConfig());
-//        // 取现配置列表
-//        extendInfoMap.put("cash_config", getCashConfig());
-        // 结算配置实体
-        extendInfoMap.put("settle_config", getSettleConfig());
+        // 取现配置列表
+        extendInfoMap.put("cash_config", getCashConfig());
+//        // 结算配置实体
+//        extendInfoMap.put("settle_config", getSettleConfig());
 //        // 业务开关对象
 //        extendInfoMap.put("biz_conf", getBizConf());
 //        // 微信配置对象
@@ -308,8 +432,8 @@ public class HfShanghuController {
 //        extendInfoMap.put("balance_pay_config", getBalancePayConfig());
 //        // 花呗分期费率配置实体
 //        extendInfoMap.put("hb_fq_fee_config", getHbFqFeeConfig());
-//        // 文件列表
-//        extendInfoMap.put("file_info", getFileInfo());
+        // 文件列表
+        extendInfoMap.put("file_info", getFileInfo());
         // 异步消息接收地址(审核)
         extendInfoMap.put("async_return_url", "");
         // 业务开通结果异步消息接收地址
@@ -343,7 +467,7 @@ public class HfShanghuController {
         // 汇付ID
         request.setHuifuId("6666000122994510");
         // 渠道商汇付ID
-        request.setUpperHuifuId("6666000122751000");
+        request.setUpperHuifuId("6666000123121915");
         // 业务处理类型
         request.setDealType("1");
 
