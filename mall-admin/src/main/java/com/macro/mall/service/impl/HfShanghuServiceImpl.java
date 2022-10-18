@@ -46,24 +46,24 @@ public class HfShanghuServiceImpl implements HfShanghuService {
     private static Map<String, Object> getExtendInfos() {
         // 设置非必填字段
         Map<String, Object> extendInfoMap = new HashMap<>();
-        // 经营简称
-        extendInfoMap.put("short_name", "姜雨");
-        // 小票名称
-        extendInfoMap.put("receipt_name", "汇付天下");
-        // 商户英文名称
-        extendInfoMap.put("mer_en_name", "huifu");
-        // 所属行业
-        extendInfoMap.put("mcc", "7273");
+//        // 经营简称
+//        extendInfoMap.put("short_name", "姜雨");
+//        // 小票名称
+//        extendInfoMap.put("receipt_name", "汇付天下");
+//        // 商户英文名称
+//        extendInfoMap.put("mer_en_name", "huifu");
+//        // 所属行业
+//        extendInfoMap.put("mcc", "7273");
         // 营业执照类型
-        extendInfoMap.put("license_type", "NATIONAL_LEGAL_MERGE");
-        // 营业执照编号
-        extendInfoMap.put("license_code", "914403001921834459");
-        // 营业执照有效期类型
-        extendInfoMap.put("license_validity_type", "0");
-        // 营业执照有效期开始日期
-        extendInfoMap.put("license_begin_date", "19831108");
-        // 营业执照有效期截止日期
-        extendInfoMap.put("license_end_date", "20380831");
+//        extendInfoMap.put("license_type", "NATIONAL_LEGAL_MERGE");
+//        // 营业执照编号
+//        extendInfoMap.put("license_code", "914403001921834459");
+//        // 营业执照有效期类型
+//        extendInfoMap.put("license_validity_type", "0");
+//        // 营业执照有效期开始日期
+//        extendInfoMap.put("license_begin_date", "19831108");
+//        // 营业执照有效期截止日期
+//        extendInfoMap.put("license_end_date", "20380831");
         // 注册详细地址
         extendInfoMap.put("reg_detail", "深圳市宝安区新安街道海旺社区N26区海秀路2021号荣超滨海大厦A座2111");
         // 注册省
@@ -73,17 +73,17 @@ public class HfShanghuServiceImpl implements HfShanghuService {
         // 注册区
         extendInfoMap.put("reg_district_id", "310104");
         // 客服电话
-        extendInfoMap.put("service_phone", "15556622000");
-        // 商户主页URL
-        extendInfoMap.put("mer_url", "http://www.baidu.com");
-        // 商户ICP备案编号
-        extendInfoMap.put("mer_icp", "苏ICP备15042526号");
-        // 开户许可证核准号
-        extendInfoMap.put("open_licence_no", "123456789");
-        // 管理员账号
-        extendInfoMap.put("login_name", "LG02022072707540497330158089012");
-        // 是否发送短信通知商户标识
-        extendInfoMap.put("sms_send_flag", "1");
+        extendInfoMap.put("service_phone", "13567889160");
+//        // 商户主页URL
+//        extendInfoMap.put("mer_url", "http://www.baidu.com");
+//        // 商户ICP备案编号
+//        extendInfoMap.put("mer_icp", "苏ICP备15042526号");
+//        // 开户许可证核准号
+//        extendInfoMap.put("open_licence_no", "123456789");
+//        // 管理员账号
+//        extendInfoMap.put("login_name", "LG02022072707540497330158089012");
+//        // 是否发送短信通知商户标识
+//        extendInfoMap.put("sms_send_flag", "1");
 //        // 取现配置列表
 //        extendInfoMap.put("cash_config", getCashConfig());
 //        // 结算配置实体
@@ -109,13 +109,13 @@ public class HfShanghuServiceImpl implements HfShanghuService {
     private static String getContactInfo() {
         JSONObject dto = new JSONObject();
         // 联系人姓名
-        dto.put("contact_name", "张三");
+        dto.put("contact_name", "何东明");
         // 联系人手机号
-        dto.put("contact_mobile_no", "15657470000");
+        dto.put("contact_mobile_no", "13567889160");
         // 联系人电子邮箱
-        dto.put("contact_email", "jeff.peng@huifu.com");
+        dto.put("contact_email", "dongming1.he@icloud.com");
         // 联系人身份证号
-        dto.put("contact_cert_no", "");
+        dto.put("contact_cert_no", "13567889160");
 
         return dto.toJSONString();
     }
@@ -129,15 +129,15 @@ public class HfShanghuServiceImpl implements HfShanghuService {
         // 银行所在市
         dto.put("area_id", "310100");
         // 结算账户名
-        dto.put("card_name", "张华");
+        dto.put("card_name", "何东明");
         // 结算账号
-        dto.put("card_no", "621485121290000");
-        // 银行编码
-        dto.put("bank_code", "01050000");
-        // 联行号
-        dto.put("branch_code", "105290075067");
-        // 支行名称
-        dto.put("branch_name", "中国建设银行股份有限公司上海五角场支行");
+        dto.put("card_no", "6214835765798853");
+//        // 银行编码
+//        dto.put("bank_code", "01050000");
+//        // 联行号
+//        dto.put("branch_code", "105290075067");
+//        // 支行名称
+//        dto.put("branch_name", "中国建设银行股份有限公司上海五角场支行");
         // 持卡人证件有效期类型
         dto.put("cert_validity_type", "1");
         // 持卡人证件有效期（起始）
