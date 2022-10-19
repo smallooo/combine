@@ -4,9 +4,11 @@ import com.macro.mall.common.api.CommonResult;
 
 public interface HfTradeService {
 
-    CommonResult register();
+    //聚合正扫
+    CommonResult tradePaymentJspay();
 
-    CommonResult getShanghuDetail();
+    //聚合反扫
+    CommonResult paymentMicropay();
 
 
 }

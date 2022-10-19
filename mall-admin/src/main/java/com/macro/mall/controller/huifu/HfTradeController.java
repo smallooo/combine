@@ -42,11 +42,11 @@ public class HfTradeController {
     @ApiOperation("正扫")
     @RequestMapping(value = "/jspay", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult jspay(@RequestBody List<PmsSkuStock> skuStockList) {
+    public CommonResult jspay() {
 
 
 
-        CommonResult result = hfTradeService.register();
+        CommonResult result = hfTradeService.tradePaymentJspay();
         return CommonResult.success(1);
     }
 

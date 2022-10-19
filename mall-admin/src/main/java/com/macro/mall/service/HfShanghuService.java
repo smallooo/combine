@@ -10,7 +10,6 @@ public interface HfShanghuService {
      */
     CommonResult interateRegRequest() throws Exception;
 
-
     /**
      * 商户统一变更接口
      */
@@ -23,14 +22,6 @@ public interface HfShanghuService {
 
     //商户分账配置查询
     CommonResult split() throws Exception;
-
-
-    //聚合正扫
-    CommonResult tradePaymentJspay() throws Exception;
-
-
-    //聚合反扫
-    CommonResult paymentMicropay() throws Exception;
 
     //账户余额查询
     CommonResult acctpaymentBalance() throws Exception;
