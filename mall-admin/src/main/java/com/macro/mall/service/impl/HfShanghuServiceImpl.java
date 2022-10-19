@@ -249,7 +249,7 @@ public class HfShanghuServiceImpl implements HfShanghuService {
         // 请求日期
         request.setReqDate(DateTools.getCurrentDateYYYYMMDD());
         // 汇付客户Id
-        request.setHuifuId("6666000107932702");
+        request.setHuifuId("6666000123127789");
 
         // 设置非必填字段
         Map<String, Object> extendInfoMap = getExtendInfos();

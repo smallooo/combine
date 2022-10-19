@@ -219,6 +219,95 @@ public class HfShanghuController {
         return dto.toJSONString();
     }
 
+    private static String getWxConfList() {
+        JSONObject dto = new JSONObject();
+        // 支付场景
+        dto.put("pay_scene", "1");
+        // 手续费（%）
+        dto.put("fee_rate", "0.38");
+        // 费率规则id
+        dto.put("fee_rule_id", "758");
+        // 商户经营类目
+        dto.put("mcc", "111");
+        // 子渠道号
+        dto.put("pay_channel_id", "JP00001");
+        // 公众号支付Appid
+        dto.put("wx_woa_app_id", "wx_woa_app_id");
+        // 微信公众号授权目录
+        dto.put("wx_woa_path", "wx_woa_path ");
+        // 微信小程序APPID
+        dto.put("wx_applet_app_id", "wx_applet_app_id");
+        // 微信公众号APPID对应的秘钥
+        dto.put("wx_woa_secret", "wx_woa_secret");
+        // 微信小程序APPID对应的秘钥
+        dto.put("wx_applet_secret", "wx_applet_secret");
+        // 申请服务 
+        dto.put("service_codes", "['JSAPI','PAP']");
+        // 交易手续费外扣时的账户类型
+        dto.put("out_fee_acct_type", "01");
+        // 交易手续费外扣汇付ID
+        dto.put("out_fee_huifuid", "6666000105215340");
+        // 是否交易手续费外扣
+        dto.put("out_fee_flag", "1");
+
+        JSONArray dtoList = new JSONArray();
+        dtoList.add(dto);
+        return dtoList.toJSONString();
+    }
+
+    private static String getWxRealnameInfo() {
+        JSONObject dto = new JSONObject();
+        // 支付场景
+        dto.put("pay_scene", "1");
+        // 联系人证件号码
+        dto.put("contact_id_card_number", "210411198701140000");
+        // 实名认证类型
+        dto.put("realname_info_type", "A");
+        // 子渠道号
+        dto.put("pay_channel_id", "JP00001");
+        // 联系人姓名
+        dto.put("name", "李少伟");
+        // 联系人手机号
+        dto.put("mobile", "15606044444");
+        // 联系人类型
+        dto.put("contact_type", "LEGAL");
+        // 联系人证件类型
+        dto.put("contact_id_doc_type", "00");
+        // 联系人证件有效期开始时间
+        dto.put("contact_period_begin_date", "20200724");
+        // 联系人证件有效期结束时间
+        dto.put("contact_period_end_date", "20400724");
+//        // 机构证书类型
+//        dto.put("cert_type", "CERTIFICATE_TYPE_2389");
+//        // 机构证书编号
+//        dto.put("cert_number", "1234567892");
+//        // 经营者/法人是否为受益人
+//        dto.put("owner", "Y");
+//        // 法人证件居住地址
+//        dto.put("legal_identification_address", "上海祁连山路1号");
+        // 小微经营类型
+//        dto.put("micro_biz_type", "");
+//        // 门店名称
+//        dto.put("store_name", "");
+//        // 门店省市编码
+//        dto.put("store_address_code", "");
+//        // 门店地址
+//        dto.put("store_address", "");
+//        // 特殊行业Id
+//        dto.put("category_id", "");
+        // 是否金融机构
+        dto.put("finance_institution_flag", "N");
+//        // 金融机构类型
+//        dto.put("finance_type", "");
+//        // 受益人信息
+//        dto.put("ubo_info_list", getUboInfo());
+//        // 经营许可证
+//        dto.put("qualification_info_list", getQualificationInfoList());
+
+        return dto.toJSONString();
+    }
+
+
     private static String getAliConfList() {
         JSONObject dto = new JSONObject();
         // 支付场景
@@ -266,17 +355,17 @@ public class HfShanghuController {
         // 结算周期
         dto.put("settle_cycle", "T1");
         // 节假日结算手续费率
-        dto.put("fixed_ratio", "");
+        dto.put("fixed_ratio", "0.38");
         // 起结金额
         dto.put("min_amt", "1.00");
-        // 结算手续费外扣时的账户类型
-        dto.put("out_settle_acct_type", "");
-        // 结算手续费外扣时的汇付ID
-        dto.put("out_settle_huifuid", "6666000122994510");
+//        // 结算手续费外扣时的账户类型
+//        dto.put("out_settle_acct_type", "");
+//        // 结算手续费外扣时的汇付ID
+//        dto.put("out_settle_huifuid", "6666000122994510");
         // 手续费外扣标记
         dto.put("out_settle_flag", "2");
         // 留存金额
-        dto.put("remained_amt", "1000.00");
+        dto.put("remained_amt", "1.00");
         // 结算摘要
         dto.put("settle_abstract", "结算资金");
         // 结算批次号
@@ -284,7 +373,7 @@ public class HfShanghuController {
         // 结算方式
         dto.put("settle_pattern", "P1");
         // 是否优先到账
-        dto.put("is_priority_receipt", "");
+        dto.put("is_priority_receipt", "Y");
         // 到账时间
         dto.put("settle_time", "103000");
 
@@ -403,23 +492,23 @@ public class HfShanghuController {
 //        // 商户基本信息
 //        extendInfoMap.put("basic_info", getBasicInfo());
         // 卡信息配置实体
-        extendInfoMap.put("card_info", getCardInfo());
+      //  extendInfoMap.put("card_info", getCardInfo());
 //        // 协议信息实体
 //        extendInfoMap.put("agreement_info", getAgreementInfo());
 //        // 支付补贴
 //        extendInfoMap.put("combine_pay_config", getCombinePayConfig());
         // 取现配置列表
-        extendInfoMap.put("cash_config", getCashConfig());
-//        // 结算配置实体
-//        extendInfoMap.put("settle_config", getSettleConfig());
+     //   extendInfoMap.put("cash_config", getCashConfig());
+        // 结算配置实体
+     //   extendInfoMap.put("settle_config", getSettleConfig());
 //        // 业务开关对象
 //        extendInfoMap.put("biz_conf", getBizConf());
-//        // 微信配置对象
-//        extendInfoMap.put("wx_conf_list", getWxConfList());
-//        // 实名认证信息
-//        extendInfoMap.put("wx_realname_info", getWxRealnameInfo());
+        // 微信配置对象
+       // extendInfoMap.put("wx_conf_list", getWxConfList());
+        // 实名认证信息
+        extendInfoMap.put("wx_realname_info", getWxRealnameInfo());
         // 支付宝配置对象
-        extendInfoMap.put("ali_conf_list", getAliConfList());
+      //  extendInfoMap.put("ali_conf_list", getAliConfList());
 //        // 银联小微入驻信息实体
 //        extendInfoMap.put("union_micro_info", getUnionMicroInfo());
 //        // 银联配置对象
@@ -431,22 +520,22 @@ public class HfShanghuController {
 //        // 花呗分期费率配置实体
 //        extendInfoMap.put("hb_fq_fee_config", getHbFqFeeConfig());
         // 管理员账号
-        extendInfoMap.put("login_name", "fhuhwasywfsxwswf1");
+//        extendInfoMap.put("login_name", "fhuhwasywfsxwswf1");
 
         // 文件列表
-        extendInfoMap.put("file_info", getFileInfo());
+  //      extendInfoMap.put("file_info", getFileInfo());
         // 异步消息接收地址(审核)
-        extendInfoMap.put("async_return_url", "");
+  //      extendInfoMap.put("async_return_url", "");
         // 业务开通结果异步消息接收地址
-        extendInfoMap.put("busi_async_return_url", "");
+   //     extendInfoMap.put("busi_async_return_url", "");
         // 交易异步应答地址
-        extendInfoMap.put("recon_resp_addr", "");
+  //      extendInfoMap.put("recon_resp_addr", "");
 //        // 线上费率配置
 //        extendInfoMap.put("online_fee_conf_list", getOnlineFeeConfList());
 //        // 线上手续费承担方配置
 //        extendInfoMap.put("online_pay_fee_conf_list", getOnlinePayFeeConfList());
         // 商户业务类型
-        extendInfoMap.put("mer_bus_type", "");
+ //       extendInfoMap.put("mer_bus_type", "");
         return extendInfoMap;
     }
 
@@ -456,9 +545,6 @@ public class HfShanghuController {
     @RequestMapping(value = "/busimodify", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult busimodify() throws Exception {
-       // CommonResult subjectList = hfShanghuService.getShanghuDetail();
-        //return CommonResult.success(CommonPage.restPage(subjectList));
-
         // 2.组装请求参数
         V2MerchantIntegrateUpdateRequest request = new V2MerchantIntegrateUpdateRequest();
         // 请求流水号
@@ -466,9 +552,9 @@ public class HfShanghuController {
         // 请求日期
         request.setReqDate(DateTools.getCurrentDateYYYYMMDD());
         // 汇付ID
-        request.setHuifuId("6666000122994510");
+        request.setHuifuId("6666000123127789");
         // 渠道商汇付ID
-        request.setUpperHuifuId("6666000123121915");
+        request.setUpperHuifuId("6666000122751000");
         // 业务处理类型
         request.setDealType("1");
 
@@ -487,22 +573,15 @@ public class HfShanghuController {
     @ApiOperation(value = "图片上传")
     @RequestMapping(value = "/photoupload", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult photoupload(@RequestParam(value = "keyword", required = false) String keyword,
-                                   @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-                                   @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
-       // CommonResult subjectList = hfShanghuService.getShanghuDetail();
-        //return CommonResult.success(CommonPage.restPage(subjectList));
+    public CommonResult photoupload() {
         return CommonResult.success(1);
     }
 
     @ApiOperation(value = "状态查询")
     @RequestMapping(value = "/statusquery", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult statusquery(@RequestParam(value = "keyword", required = false) String keyword,
-                                    @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-                                    @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
-       // CommonResult subjectList = hfShanghuService.getShanghuDetail();
-        //return CommonResult.success(CommonPage.restPage(subjectList));
+    public CommonResult statusquery() throws Exception {
+        hfShanghuService.getShanghuDetail();
         return CommonResult.success(1);
     }
 
