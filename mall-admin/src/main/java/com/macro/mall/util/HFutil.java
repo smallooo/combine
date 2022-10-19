@@ -415,10 +415,10 @@ public class HFutil {
 //        extendInfoMap.put("agreement_info", getAgreementInfo());
 //        // 支付补贴
 //        extendInfoMap.put("combine_pay_config", getCombinePayConfig());
-        // 取现配置列表
-        //   extendInfoMap.put("cash_config", getCashConfig());
-        // 结算配置实体
-        //   extendInfoMap.put("settle_config", getSettleConfig());
+         //取现配置列表
+           extendInfoMap.put("cash_config", getCashConfig());
+         //结算配置实体
+           extendInfoMap.put("settle_config", getSettleConfig());
 //        // 业务开关对象
 //        extendInfoMap.put("biz_conf", getBizConf());
         // 微信配置对象
@@ -426,7 +426,7 @@ public class HFutil {
         // 实名认证信息
         extendInfoMap.put("wx_realname_info", getWxRealnameInfo());
         // 支付宝配置对象
-        //  extendInfoMap.put("ali_conf_list", getAliConfList());
+          extendInfoMap.put("ali_conf_list", getAliConfList());
 //        // 银联小微入驻信息实体
 //        extendInfoMap.put("union_micro_info", getUnionMicroInfo());
 //        // 银联配置对象
@@ -441,19 +441,19 @@ public class HFutil {
 //        extendInfoMap.put("login_name", "fhuhwasywfsxwswf1");
 
         // 文件列表
-        //      extendInfoMap.put("file_info", getFileInfo());
+              extendInfoMap.put("file_info", getFileInfo());
         // 异步消息接收地址(审核)
-        //      extendInfoMap.put("async_return_url", "");
+              extendInfoMap.put("async_return_url", "");
         // 业务开通结果异步消息接收地址
-        //     extendInfoMap.put("busi_async_return_url", "");
+             extendInfoMap.put("busi_async_return_url", "");
         // 交易异步应答地址
-        //      extendInfoMap.put("recon_resp_addr", "");
+              extendInfoMap.put("recon_resp_addr", "");
 //        // 线上费率配置
 //        extendInfoMap.put("online_fee_conf_list", getOnlineFeeConfList());
 //        // 线上手续费承担方配置
 //        extendInfoMap.put("online_pay_fee_conf_list", getOnlinePayFeeConfList());
         // 商户业务类型
-        //       extendInfoMap.put("mer_bus_type", "");
+        // extendInfoMap.put("mer_bus_type", "");
         return extendInfoMap;
     }
 }

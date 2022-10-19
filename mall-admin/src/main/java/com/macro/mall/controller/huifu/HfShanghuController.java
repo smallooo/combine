@@ -1,13 +1,10 @@
 package com.macro.mall.controller.huifu;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.huifu.bspay.sdk.opps.core.request.V2MerchantIntegrateRegRequest;
-import com.huifu.bspay.sdk.opps.core.request.V2MerchantIntegrateUpdateRequest;
+import com.huifu.bspay.sdk.opps.core.request.V2MerchantBusiAliRealnameQueryRequest;
 import com.huifu.bspay.sdk.opps.core.utils.DateTools;
 import com.huifu.bspay.sdk.opps.core.utils.SequenceTools;
 import com.macro.mall.common.api.CommonResult;
-import com.macro.mall.model.PmsSkuStock;
 import com.macro.mall.service.HfShanghuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static com.macro.mall.controller.huifu.BaseCommonDemo.doExecute;
@@ -46,7 +41,7 @@ public class HfShanghuController {
     @RequestMapping(value = "/detailinfo", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult getList() throws Exception {
-        hfShanghuService.interateRegRequest();
+        hfShanghuService.getShanghuDetail();
         return CommonResult.success(1);
     }
 
@@ -54,7 +49,7 @@ public class HfShanghuController {
     @RequestMapping(value = "/busimodify", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult busimodify() throws Exception {
-
+        hfShanghuService.integrateUpdateRequest();
         return CommonResult.success(1);
     }
 
@@ -62,6 +57,8 @@ public class HfShanghuController {
     @RequestMapping(value = "/photoupload", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult photoupload() {
+        //上传汇付
+        //上传阿里云
         return CommonResult.success(1);
     }
 
@@ -77,6 +74,27 @@ public class HfShanghuController {
     @RequestMapping(value = "/statusmodify", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult statusmodify() {
+        return CommonResult.success(1);
+    }
+
+    @ApiOperation("支付宝实名认证查询")
+    @RequestMapping(value = "/alistatus", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult alistatus() throws Exception {
+        // 2.组装请求参数
+        V2MerchantBusiAliRealnameQueryRequest request = new V2MerchantBusiAliRealnameQueryRequest();
+        // 请求流水号
+        request.setReqSeqId(SequenceTools.getReqSeqId32());
+        // 请求时间
+        request.setReqDate(DateTools.getCurrentDateYYYYMMDD());
+        // 汇付ID
+        request.setHuifuId("6666000123118169");
+//        // 设置非必填字段
+//        Map<String, Object> extendInfoMap = getExtendInfos();
+//        request.setExtendInfo(extendInfoMap);
+        // 3. 发起API调用
+        Map<String, Object> response = doExecute(request);
+        System.out.println("返回数据:" + JSONObject.toJSONString(response));
 
         return CommonResult.success(1);
     }

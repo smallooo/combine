@@ -77,9 +77,8 @@ public class HfUserController {
         // 图片名称
         request.setPicture("身份证.jpeg");
 
-//        //获取项目路径
-          File directory = new File("mall-admin/src/main/resources/static/images");
-
+        //获取项目路径
+        File directory = new File("mall-admin/src/main/resources/static/images");
 
         // 3. 发起API调用
         Map<String, Object> response = BasePayClient.upload(request, new File(directory +"/204.jpeg"));
@@ -87,9 +86,6 @@ public class HfUserController {
 
         return null;
     }
-
-
-
 
     @ApiOperation(value = "创建代理商")
     @RequestMapping(value = "/createagnet", method = RequestMethod.POST)
@@ -99,10 +95,6 @@ public class HfUserController {
         // 开通HF账号  设置代理商角色
         // 开通个人商户信息         开通支付宝支付信息
         // 记录代理商信息
-
-
-
-
 
         //CommonResult umsAdmin = hfShanghuService.integrateregrequest();
 //        if (umsAdmin == null) {

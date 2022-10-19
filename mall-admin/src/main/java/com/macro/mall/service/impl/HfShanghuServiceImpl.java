@@ -36,19 +36,19 @@ public class HfShanghuServiceImpl implements HfShanghuService {
         request.setRegName("李少伟");
         // 经营类型 1 实体
         request.setBusiType("1");
-        // 经营详细地址
-        request.setDetailAddr("福建省漳州市龙文区中山东路1188号");
         // 经营省
         request.setProvId("350000");
         // 经营市
         request.setAreaId("350600");
         // 经营区
         request.setDistrictId("350603");
+        // 经营详细地址
+        request.setDetailAddr("福建省漳州市龙文区中山东路1188号");
         // 联系人信息
         request.setContactInfo(getContactInfo());
 
 
-        // 卡信息配置实体
+        // 经营详细地址
         request.setCardInfo(getCardInfo());
         // 设置非必填字段
         Map<String, Object> extendInfoMap = getExtendInfos();

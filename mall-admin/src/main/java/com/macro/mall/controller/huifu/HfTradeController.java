@@ -43,50 +43,18 @@ public class HfTradeController {
     @RequestMapping(value = "/jspay", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult jspay() {
-
-
-
         CommonResult result = hfTradeService.tradePaymentJspay();
         return CommonResult.success(1);
     }
-
-    @Value("${HF.setProcutId}")
-    private String setProcutId;
 
     @ApiOperation("反扫")
     @RequestMapping(value = "/micropay", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult micropay() {
-
-
         return CommonResult.success(1);
     }
 
 
-    @ApiOperation("支付宝实名认证查询")
-    @RequestMapping(value = "/alistatus", method = RequestMethod.POST)
-    @ResponseBody
-    public CommonResult alistatus() throws Exception {
-
-        // 2.组装请求参数
-        V2MerchantBusiAliRealnameQueryRequest request = new V2MerchantBusiAliRealnameQueryRequest();
-        // 请求流水号
-        request.setReqSeqId(SequenceTools.getReqSeqId32());
-        // 请求时间
-        request.setReqDate(DateTools.getCurrentDateYYYYMMDD());
-        // 汇付ID
-        request.setHuifuId("6666000123118169");
-
-//        // 设置非必填字段
-//        Map<String, Object> extendInfoMap = getExtendInfos();
-//        request.setExtendInfo(extendInfoMap);
-
-        // 3. 发起API调用
-        Map<String, Object> response = doExecute(request);
-        System.out.println("返回数据:" + JSONObject.toJSONString(response));
-
-        return CommonResult.success(1);
-    }
 
 
 }
