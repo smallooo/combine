@@ -73,7 +73,7 @@ public class HfShanghuServiceImpl implements HfShanghuService {
         // 渠道商汇付ID
         request.setUpperHuifuId("6666000122751000");
         // 业务处理类型
-        request.setDealType("1");
+        request.setDealType("3");
 
         // 设置非必填字段
         Map<String, Object> extendInfoMap = getExtendInfos();

@@ -181,8 +181,8 @@ public class HFutil {
         dto.put("contact_id_card_number", "210411198701140000");
         // 实名认证类型
         dto.put("realname_info_type", "A");
-        // 子渠道号
-        dto.put("pay_channel_id", "JP00001");
+//        // 子渠道号
+//        dto.put("pay_channel_id", "JP00001");
         // 联系人姓名
         dto.put("name", "李少伟");
         // 联系人手机号
@@ -410,7 +410,7 @@ public class HFutil {
 //        // 商户基本信息
 //        extendInfoMap.put("basic_info", getBasicInfo());
         // 卡信息配置实体
-        //  extendInfoMap.put("card_info", getCardInfo());
+          extendInfoMap.put("card_info", getCardInfo());
 //        // 协议信息实体
 //        extendInfoMap.put("agreement_info", getAgreementInfo());
 //        // 支付补贴
@@ -418,7 +418,7 @@ public class HFutil {
          //取现配置列表
            extendInfoMap.put("cash_config", getCashConfig());
          //结算配置实体
-           extendInfoMap.put("settle_config", getSettleConfig());
+ //          extendInfoMap.put("settle_config", getSettleConfig());
 //        // 业务开关对象
 //        extendInfoMap.put("biz_conf", getBizConf());
         // 微信配置对象

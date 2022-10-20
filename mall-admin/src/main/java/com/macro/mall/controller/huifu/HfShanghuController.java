@@ -1,6 +1,7 @@
 package com.macro.mall.controller.huifu;
 
 import com.alibaba.fastjson.JSONObject;
+import com.huifu.bspay.sdk.opps.core.request.V2MerchantBusiAliRealnameApplyRequest;
 import com.huifu.bspay.sdk.opps.core.request.V2MerchantBusiAliRealnameQueryRequest;
 import com.huifu.bspay.sdk.opps.core.utils.DateTools;
 import com.huifu.bspay.sdk.opps.core.utils.SequenceTools;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import static com.macro.mall.controller.huifu.BaseCommonDemo.doExecute;
@@ -81,22 +83,106 @@ public class HfShanghuController {
     @RequestMapping(value = "/alistatus", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult alistatus() throws Exception {
-        // 2.组装请求参数
         V2MerchantBusiAliRealnameQueryRequest request = new V2MerchantBusiAliRealnameQueryRequest();
-        // 请求流水号
         request.setReqSeqId(SequenceTools.getReqSeqId32());
-        // 请求时间
         request.setReqDate(DateTools.getCurrentDateYYYYMMDD());
-        // 汇付ID
-        request.setHuifuId("6666000123118169");
-//        // 设置非必填字段
-//        Map<String, Object> extendInfoMap = getExtendInfos();
-//        request.setExtendInfo(extendInfoMap);
-        // 3. 发起API调用
+        request.setHuifuId("6666000123127789");
         Map<String, Object> response = doExecute(request);
         System.out.println("返回数据:" + JSONObject.toJSONString(response));
 
         return CommonResult.success(1);
     }
 
+
+    private static String getLegalPersonInfo() {
+        JSONObject dto = new JSONObject();
+        // 证件持有人类型
+        dto.put("legal_type", "LEGAL");
+        // 证件类型
+        dto.put("card_type", "00");
+        // 法人姓名
+        dto.put("person_name", "李少伟");
+        // 证件号码
+        dto.put("card_no", "350628198306200079");
+        // 证件生效时间
+        dto.put("effect_time", "20200724");
+        // 证件过期时间
+        dto.put("expire_time", "20400724");
+        // 证件正面照
+        dto.put("card_front_img", "856ec6fa-5632-3646-8e9f-4ee52cd0a7b1");
+        // 证件反面照
+        dto.put("card_back_img", "9b73a96e-12b6-37b9-916a-59a611713b80");
+        // 授权函照片
+        // 是否为受益人
+
+        return dto.toJSONString();
+    }
+
+
+
+
+
+    private static Map<String, Object> getaliExtendInfos() {
+        // 设置非必填字段
+        Map<String, Object> extendInfoMap = new HashMap<>();
+//        // 子渠道号
+//        extendInfoMap.put("pay_channel_id", "10000001");
+        // 业务开通类型
+        extendInfoMap.put("pay_scene", "1");
+        // 法人身份信息
+        extendInfoMap.put("legal_person_info", getLegalPersonInfo());
+        // 受益人信息
+        return extendInfoMap;
+    }
+
+    private static String getContactPersonInfo() {
+        JSONObject dto = new JSONObject();
+        // 联系人身份证号码
+        dto.put("id_card_number", "350628198306200079");
+        // 联系人姓名
+        dto.put("name", "李少伟");
+        // 联系人手机号
+        dto.put("mobile", "15606044444");
+
+        return dto.toJSONString();
+    }
+
+    private static String getAuthIdentityInfo() {
+        JSONObject dto = new JSONObject();
+        // 主体类型
+        dto.put("business_type", "0");
+        // 是否金融机构
+        dto.put("finance_institution_flag", "N");
+
+        return dto.toJSONString();
+    }
+
+
+    @ApiOperation("支付宝实名认证申请")
+    @RequestMapping(value = "/alisverify", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult alisverify() throws Exception {
+        // 2.组装请求参数
+        V2MerchantBusiAliRealnameApplyRequest request = new V2MerchantBusiAliRealnameApplyRequest();
+        // 请求流水号
+        request.setReqSeqId(SequenceTools.getReqSeqId32());
+        // 请求时间
+        request.setReqDate(DateTools.getCurrentDateYYYYMMDD());
+        // 汇付ID
+        request.setHuifuId("6666000123127789");
+//        // 联系人信息
+        request.setContactPersonInfo(getContactPersonInfo());
+        // 主体信息
+        request.setAuthIdentityInfo(getAuthIdentityInfo());
+
+        // 设置非必填字段
+       // Map<String, Object> extendInfoMap = getExtendInfos();
+       // request.setExtendInfo(extendInfoMap);
+
+        // 3. 发起API调用
+        Map<String, Object> response = doExecute(request);
+        System.out.println("返回数据:" + JSONObject.toJSONString(response));
+
+        return CommonResult.success(1);
+    }
 }
