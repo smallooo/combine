@@ -1,5 +1,6 @@
 package com.macro.mall.controller.huifu;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huifu.bspay.sdk.opps.core.request.V2MerchantBusiAliRealnameApplyRequest;
 import com.huifu.bspay.sdk.opps.core.request.V2MerchantBusiAliRealnameQueryRequest;
@@ -72,13 +73,6 @@ public class HfShanghuController {
         return CommonResult.success(1);
     }
 
-    @ApiOperation(value = "状态变更")
-    @RequestMapping(value = "/statusmodify", method = RequestMethod.GET)
-    @ResponseBody
-    public CommonResult statusmodify() {
-        return CommonResult.success(1);
-    }
-
     @ApiOperation("支付宝实名认证查询")
     @RequestMapping(value = "/alistatus", method = RequestMethod.POST)
     @ResponseBody
@@ -86,65 +80,64 @@ public class HfShanghuController {
         V2MerchantBusiAliRealnameQueryRequest request = new V2MerchantBusiAliRealnameQueryRequest();
         request.setReqSeqId(SequenceTools.getReqSeqId32());
         request.setReqDate(DateTools.getCurrentDateYYYYMMDD());
-        request.setHuifuId("6666000123127789");
+        request.setHuifuId("6666000123196564");
         Map<String, Object> response = doExecute(request);
         System.out.println("返回数据:" + JSONObject.toJSONString(response));
-
         return CommonResult.success(1);
     }
 
 
-    private static String getLegalPersonInfo() {
-        JSONObject dto = new JSONObject();
-        // 证件持有人类型
-        dto.put("legal_type", "LEGAL");
-        // 证件类型
-        dto.put("card_type", "00");
-        // 法人姓名
-        dto.put("person_name", "李少伟");
-        // 证件号码
-        dto.put("card_no", "350628198306200079");
-        // 证件生效时间
-        dto.put("effect_time", "20200724");
-        // 证件过期时间
-        dto.put("expire_time", "20400724");
-        // 证件正面照
-        dto.put("card_front_img", "856ec6fa-5632-3646-8e9f-4ee52cd0a7b1");
-        // 证件反面照
-        dto.put("card_back_img", "9b73a96e-12b6-37b9-916a-59a611713b80");
-        // 授权函照片
-        // 是否为受益人
-
-        return dto.toJSONString();
-    }
-
-
-
-
-
-    private static Map<String, Object> getaliExtendInfos() {
-        // 设置非必填字段
-        Map<String, Object> extendInfoMap = new HashMap<>();
-//        // 子渠道号
-//        extendInfoMap.put("pay_channel_id", "10000001");
-        // 业务开通类型
-        extendInfoMap.put("pay_scene", "1");
-        // 法人身份信息
-        extendInfoMap.put("legal_person_info", getLegalPersonInfo());
-        // 受益人信息
-        return extendInfoMap;
-    }
-
     private static String getContactPersonInfo() {
         JSONObject dto = new JSONObject();
         // 联系人身份证号码
-        dto.put("id_card_number", "350628198306200079");
+        dto.put("id_card_number", "130827198408270012");
         // 联系人姓名
-        dto.put("name", "李少伟");
+        dto.put("name", "李铁航");
         // 联系人手机号
-        dto.put("mobile", "15606044444");
+        dto.put("mobile", "15900777754");
 
         return dto.toJSONString();
+    }
+
+
+    private static String getSupportCredentials() {
+        JSONObject dto = new JSONObject();
+        // 小微经营类型
+        dto.put("micro_biz_type", "MICRO_TYPE_STORE");
+        // 门店名称
+        dto.put("store_name", "肯德基共富新村店");
+        // 门店省市编码
+        dto.put("province_code", "310000");
+        // 门店省份
+        dto.put("province", "上海");
+        // 门店市行政区号
+        dto.put("city_code", "310100");
+        // 门店城市
+        dto.put("city", "上海市");
+        // 门店街道区号
+        dto.put("district_code", "310107");
+        // 门店街道
+        dto.put("district", "普陀区");
+        // 门店场所填写门店详细地址
+        dto.put("store_address", "消息路");
+        // 门店门头照信息或摊位照
+        dto.put("store_door_img", "afce08c5-1548-30f8-bf70-1752c3012f66");
+        // 门店店内照片或者摊位照侧面
+        dto.put("store_inner_img", "51dd13bb-6268-36d0-ac84-c4cdc19eccba");
+
+        return dto.toJSONString();
+    }
+
+    private static String getQualificationInfoList() {
+        JSONObject dto = new JSONObject();
+        // 行业类目id
+        dto.put("mcc_code", "5331");
+        // 行业经营许可证资质照片
+        dto.put("image_list", "afce08c5-1548-30f8-bf70-1752c3012f66,51dd13bb-6268-36d0-ac84-c4cdc19eccba");
+
+        JSONArray dtoList = new JSONArray();
+        dtoList.add(dto);
+        return dtoList.toJSONString();
     }
 
     private static String getAuthIdentityInfo() {
@@ -153,6 +146,14 @@ public class HfShanghuController {
         dto.put("business_type", "0");
         // 是否金融机构
         dto.put("finance_institution_flag", "N");
+        // 证照类型
+        dto.put("certificate_type", "BUSINESS_CERT");
+        // 单位证明函照片
+        dto.put("company_prove_copy", "71da066c-5d15-3658-a86d-4e85ee67808a");
+        // 辅助证明材料信息
+        dto.put("support_credentials", getSupportCredentials());
+        // 经营许可证
+       // dto.put("qualification_info_list", getQualificationInfoList());
 
         return dto.toJSONString();
     }
@@ -169,7 +170,7 @@ public class HfShanghuController {
         // 请求时间
         request.setReqDate(DateTools.getCurrentDateYYYYMMDD());
         // 汇付ID
-        request.setHuifuId("6666000123127789");
+        request.setHuifuId("6666000123196564");
 //        // 联系人信息
         request.setContactPersonInfo(getContactPersonInfo());
         // 主体信息

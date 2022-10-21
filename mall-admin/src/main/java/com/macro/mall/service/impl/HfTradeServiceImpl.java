@@ -24,7 +24,7 @@ public class HfTradeServiceImpl implements HfTradeService {
         // 请求流水号
         request.setReqSeqId(SequenceTools.getReqSeqId32());
         // 商户号
-        request.setHuifuId("6666000123127789");
+        request.setHuifuId("6666000123196564");
         // 交易类型
         request.setTradeType("A_NATIVE");
         // 交易金额

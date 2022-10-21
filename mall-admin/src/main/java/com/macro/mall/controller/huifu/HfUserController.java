@@ -55,11 +55,8 @@ public class HfUserController {
     @RequestMapping(value = "/modify", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult statusChecking(@Validated @RequestBody UmsAdminParam umsAdminParam) throws Exception {
-        CommonResult umsAdmin = hfShanghuService.interateRegRequest();
-        if (umsAdmin == null) {
-            return CommonResult.failed();
-        }
-        return CommonResult.success(umsAdmin);
+
+        return CommonResult.success("");
     }
 
     @ApiOperation(value = "上传图片")

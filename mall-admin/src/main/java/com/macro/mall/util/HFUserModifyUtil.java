@@ -6,8 +6,56 @@ import com.alibaba.fastjson.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HFutil {
+public class HFUserModifyUtil {
     public static String getCardInfo() {
+//        JSONObject dto = new JSONObject();
+//        // 结算类型 1 对私  2 对私非法人
+//        dto.put("card_type", "1");
+//        // 银行所在省
+//        dto.put("prov_id", "310000");
+//        // 银行所在市
+//        dto.put("area_id", "310100");
+//        // 结算账户名
+//        dto.put("card_name", "何东明");
+//        // 结算账号
+//        dto.put("card_no", "6214835765798853");
+//        // 持卡人证件有效期类型
+//        dto.put("cert_validity_type", "0");
+//        // 持卡人证件有效期（起始）
+//        dto.put("cert_begin_date", "20170401");
+//        // 持卡人证件有效期（截止）
+//        dto.put("cert_end_date", "20370401");
+//        // 持卡人证件号码
+//        dto.put("cert_no", "331002198511211018");
+//        // 持卡人证件类型
+//        dto.put("cert_type", "00");
+//        // 银行卡绑定手机号
+//        dto.put("mp", "13567889160");
+
+//        JSONObject dto = new JSONObject();
+//        // 结算类型 1 对私  2 对私非法人
+//        dto.put("card_type", "1");
+//        // 银行所在省
+//        dto.put("prov_id", "330000");
+//        // 银行所在市
+//        dto.put("area_id", "331000");
+//        // 结算账户名
+//        dto.put("card_name", "陈盼");
+//        // 结算账号
+//        dto.put("card_no", "6230580000298182796");
+//        // 持卡人证件有效期类型
+//        dto.put("cert_validity_type", "0");
+//        // 持卡人证件有效期（起始）
+//        dto.put("cert_begin_date", "20190328");
+//        // 持卡人证件有效期（截止）
+//        dto.put("cert_end_date", "20290328");
+//        // 持卡人证件号码
+//        dto.put("cert_no", "331002199304153120");
+//        // 持卡人证件类型
+//        dto.put("cert_type", "00");
+//        // 银行卡绑定手机号
+//        dto.put("mp", "18911808760");
+
         JSONObject dto = new JSONObject();
         // 结算类型 1 对私  2 对私非法人
         dto.put("card_type", "1");
@@ -31,11 +79,31 @@ public class HFutil {
         dto.put("cert_type", "00");
         // 银行卡绑定手机号
         dto.put("mp", "15900777754");
+
         return dto.toJSONString();
     }
 
     public static String getContactInfo() {
         JSONObject dto = new JSONObject();
+//        // 联系人姓名
+//        dto.put("contact_name", "何东明");
+//        // 联系人手机号
+//        dto.put("contact_mobile_no", "13567889160");
+//        // 联系人电子邮箱
+//        dto.put("contact_email", "dongming1.he@icloud.com");
+//        // 联系人身份证号
+//        dto.put("contact_cert_no", "331002198511211018");
+
+
+//        // 联系人姓名
+//        dto.put("contact_name", "陈盼");
+//        // 联系人手机号
+//        dto.put("contact_mobile_no", "18911808760");
+//        // 联系人电子邮箱
+//        dto.put("contact_email", "pan.chen@icloud.com");
+//        // 联系人身份证号
+//        dto.put("contact_cert_no", "331002199304153120");
+
         // 联系人姓名
         dto.put("contact_name", "李铁航");
         // 联系人手机号
@@ -125,7 +193,12 @@ public class HFutil {
         // 结算批次号
         dto.put("settle_batch_no", "0");
         // 结算方式
-        dto.put("settle_pattern", "P0");
+        dto.put("settle_pattern", "P1");
+        // 是否优先到账
+        dto.put("is_priority_receipt", "Y");
+        // 到账时间
+        dto.put("settle_time", "103000");
+
         return dto.toJSONString();
     }
 
@@ -162,30 +235,21 @@ public class HFutil {
         return dto.toJSONString();
     }
 
-    private static String getBizConf() {
-        JSONObject dto = new JSONObject();
-        // 是否开通结算
-        dto.put("settle_flag", "Y");
-
-        return dto.toJSONString();
-    }
 
 
     public static Map<String, Object> getExtendInfos() {
         // 设置非必填字段
         Map<String, Object> extendInfoMap = new HashMap<>();
         // 卡信息配置实体
-          extendInfoMap.put("card_info", getCardInfo());
-         //取现配置列表
-           extendInfoMap.put("cash_config", getCashConfig());
-         //结算配置实体
-           extendInfoMap.put("settle_config", getSettleConfig());
-        // 业务开关对象
-        extendInfoMap.put("biz_conf", getBizConf());
+        extendInfoMap.put("card_info", getCardInfo());
+        //取现配置列表
+        extendInfoMap.put("cash_config", getCashConfig());
+        //结算配置实体
+        extendInfoMap.put("settle_config", getSettleConfig());
         // 实名认证信息
         extendInfoMap.put("wx_realname_info", getWxRealnameInfo());
         // 支付宝配置对象
-          extendInfoMap.put("ali_conf_list", getAliConfList());
+        extendInfoMap.put("ali_conf_list", getAliConfList());
         // 管理员账号
         extendInfoMap.put("login_name", "15900777754");
 

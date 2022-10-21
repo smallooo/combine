@@ -33,7 +33,7 @@ public class HfShanghuServiceImpl implements HfShanghuService {
         // 公司类型 0 个人商户
         request.setEntType("0");
         // 商户名称
-        request.setRegName("李少伟");
+        request.setRegName("李铁航");
         // 经营类型 1 实体
         request.setBusiType("1");
         // 经营省
@@ -69,11 +69,11 @@ public class HfShanghuServiceImpl implements HfShanghuService {
         // 请求日期
         request.setReqDate(DateTools.getCurrentDateYYYYMMDD());
         // 汇付ID
-        request.setHuifuId("6666000123127789");
+        request.setHuifuId("6666000123196564");
         // 渠道商汇付ID
         request.setUpperHuifuId("6666000122751000");
         // 业务处理类型
-        request.setDealType("3");
+        request.setDealType("2");
 
         // 设置非必填字段
         Map<String, Object> extendInfoMap = getExtendInfos();
@@ -93,12 +93,10 @@ public class HfShanghuServiceImpl implements HfShanghuService {
         // 请求日期
         request.setReqDate(DateTools.getCurrentDateYYYYMMDD());
         // 汇付客户Id
-        request.setHuifuId("6666000123127789");
-
+        request.setHuifuId("6666000123196564");
         // 设置非必填字段
         Map<String, Object> extendInfoMap = getExtendInfos();
         request.setExtendInfo(extendInfoMap);
-
         // 3. 发起API调用
         Map<String, Object> response = doExecute(request);
         System.out.println("返回数据:" + JSONObject.toJSONString(response));
