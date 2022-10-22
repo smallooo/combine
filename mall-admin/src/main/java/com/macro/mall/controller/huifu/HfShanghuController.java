@@ -7,6 +7,8 @@ import com.huifu.bspay.sdk.opps.core.request.V2MerchantBusiAliRealnameQueryReque
 import com.huifu.bspay.sdk.opps.core.utils.DateTools;
 import com.huifu.bspay.sdk.opps.core.utils.SequenceTools;
 import com.macro.mall.common.api.CommonResult;
+import com.macro.mall.dto.huifu.HFUserParam;
+import com.macro.mall.service.AUserCreateService;
 import com.macro.mall.service.HfShanghuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -31,6 +33,19 @@ import static com.macro.mall.controller.huifu.BaseCommonDemo.doExecute;
 public class HfShanghuController {
     @Autowired
     private HfShanghuService hfShanghuService;
+
+    @Autowired
+    private AUserCreateService aUserCreateService;
+
+    @ApiOperation("个人商户注册")
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult creatuser(HFUserParam hfUserParam) throws Exception {
+
+
+        aUserCreateService.createUser(hfUserParam);
+        return CommonResult.success(1);
+    }
 
     @ApiOperation("个人商户注册")
     @RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -148,15 +163,78 @@ public class HfShanghuController {
         dto.put("finance_institution_flag", "N");
         // 证照类型
         dto.put("certificate_type", "BUSINESS_CERT");
-        // 单位证明函照片
-        dto.put("company_prove_copy", "71da066c-5d15-3658-a86d-4e85ee67808a");
         // 辅助证明材料信息
         dto.put("support_credentials", getSupportCredentials());
         // 经营许可证
-       // dto.put("qualification_info_list", getQualificationInfoList());
+        dto.put("qualification_info_list", getQualificationInfoList());
 
         return dto.toJSONString();
     }
+
+    private static String getUboInfo() {
+        JSONObject dto = new JSONObject();
+        // 证件姓名
+        dto.put("ubo_id_doc_name", "李铁航");
+        // 证件类型
+        dto.put("ubo_id_doc_type", "00");
+        // 证件号码
+        dto.put("ubo_id_doc_number", "130827198408270012");
+        // 持卡人证件有效期类型
+        dto.put("cert_validity_type", "0");
+        // 证件有效期开始时间
+        dto.put("ubo_period_begin", "20210203");
+        // 证件有效期结束时间
+        dto.put("ubo_period_end", "20410203");
+        // 证件正面照片
+        dto.put("ubo_id_doc_copy", "31ba476c-d6f7-3ec1-ad20-2cf4ce3ea5eb");
+        // 证件反面照片
+        dto.put("ubo_id_doc_copy_back", "a22eef73-b024-3d1a-a089-d34837573416");
+
+        return dto.toJSONString();
+    }
+
+
+    private static String getLegalPersonInfo() {
+        JSONObject dto = new JSONObject();
+        // 证件持有人类型
+        dto.put("legal_type", "LEGAL");
+        // 证件类型
+        dto.put("card_type", "00");
+        // 法人姓名
+        dto.put("person_name", "李铁航");
+        // 证件号码
+        dto.put("card_no", "130827198408270012");
+        // 持卡人证件有效期类型
+        dto.put("cert_validity_type", "0");
+        // 证件生效时间
+        dto.put("effect_time", "20210203");
+        // 证件过期时间
+        dto.put("expire_time", "20410203");
+        // 证件正面照
+        dto.put("card_front_img", "31ba476c-d6f7-3ec1-ad20-2cf4ce3ea5eb");
+        // 证件反面照
+        dto.put("card_back_img", "a22eef73-b024-3d1a-a089-d34837573416");
+        // 是否为受益人
+        dto.put("is_benefit_person", "Y");
+
+        return dto.toJSONString();
+    }
+
+
+    private static Map<String, Object> getExtendInfos() {
+        // 设置非必填字段
+        Map<String, Object> extendInfoMap = new HashMap<>();
+        // 子渠道号
+        extendInfoMap.put("pay_channel_id", "00004631");
+        // 业务开通类型
+        extendInfoMap.put("pay_scene", "1");
+        // 法人身份信息
+        extendInfoMap.put("legal_person_info", getLegalPersonInfo());
+        // 受益人信息
+        extendInfoMap.put("ubo_info", getUboInfo());
+        return extendInfoMap;
+    }
+
 
 
     @ApiOperation("支付宝实名认证申请")
@@ -175,6 +253,10 @@ public class HfShanghuController {
         request.setContactPersonInfo(getContactPersonInfo());
         // 主体信息
         request.setAuthIdentityInfo(getAuthIdentityInfo());
+
+        // 设置非必填字段
+        Map<String, Object> extendInfoMap = getExtendInfos();
+        request.setExtendInfo(extendInfoMap);
 
         // 设置非必填字段
        // Map<String, Object> extendInfoMap = getExtendInfos();

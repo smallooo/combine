@@ -74,6 +74,9 @@ public class HFUserParam {
     @ApiModelProperty(value = "银行卡反")
     private String card_back;
 
+    
+
+
     //费率信息
     @ApiModelProperty(value = "是否开通取现")
     private String switch_state;
