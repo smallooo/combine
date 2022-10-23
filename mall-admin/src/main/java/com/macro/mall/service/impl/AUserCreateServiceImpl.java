@@ -7,16 +7,27 @@ import com.huifu.bspay.sdk.opps.core.utils.DateTools;
 import com.huifu.bspay.sdk.opps.core.utils.SequenceTools;
 import com.macro.mall.common.api.CommonResult;
 import com.macro.mall.controller.huifu.BaseCommonDemo;
+import com.macro.mall.dao.OmsOrderDao;
 import com.macro.mall.dto.huifu.HFUserParam;
+import com.macro.mall.mapper.AddresstoidMapper;
+import com.macro.mall.mapper.UmsAdminMapper;
+import com.macro.mall.model.Addresstoid;
+import com.macro.mall.model.AddresstoidExample;
+import com.macro.mall.model.SmsCouponHistoryExample;
 import com.macro.mall.service.AUserCreateService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import static com.macro.mall.util.HFutil.*;
 
+@Service
 public class AUserCreateServiceImpl implements AUserCreateService {
 
+    @Autowired
+    private AddresstoidMapper addresstoidMapper;
 
     private static String getUserCashConfig() {
         JSONObject dto = new JSONObject();
@@ -163,6 +174,14 @@ public class AUserCreateServiceImpl implements AUserCreateService {
         // 经营详细地址
         request.setDetailAddr("福建省漳州市龙文区中山东路1188号");
 
+        AddresstoidExample addresstoidExample = new AddresstoidExample();
+      //  AddresstoidExample.Criteria criteria = addresstoidExample.createCriteria();
+
+
+        List<Addresstoid> ppp = addresstoidMapper.selectByExampleWithBLOBs(addresstoidExample);
+
+
+
 
 
         JSONObject dto = new JSONObject();
@@ -176,6 +195,8 @@ public class AUserCreateServiceImpl implements AUserCreateService {
         dto.put("contact_cert_no", "130827198408270012");
         // 联系人信息
         request.setContactInfo(dto.toJSONString());
+
+
 
 
 

@@ -74,7 +74,7 @@ public class HFUserParam {
     @ApiModelProperty(value = "银行卡反")
     private String card_back;
 
-    
+
 
 
     //费率信息

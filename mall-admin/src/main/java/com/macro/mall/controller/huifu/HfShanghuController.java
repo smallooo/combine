@@ -37,12 +37,11 @@ public class HfShanghuController {
     @Autowired
     private AUserCreateService aUserCreateService;
 
-    @ApiOperation("个人商户注册")
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @ApiOperation("代理商和商户注册")
+    @RequestMapping(value = "/createuser", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult creatuser(HFUserParam hfUserParam) throws Exception {
-
-
+    public CommonResult creatuser(@RequestBody HFUserParam hfUserParam) throws Exception {
+        System.out.println("返回数据:" + hfUserParam.getUsername() + hfUserParam.getPassword());
         aUserCreateService.createUser(hfUserParam);
         return CommonResult.success(1);
     }
