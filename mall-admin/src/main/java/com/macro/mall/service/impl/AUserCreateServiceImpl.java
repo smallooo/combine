@@ -9,11 +9,10 @@ import com.macro.mall.common.api.CommonResult;
 import com.macro.mall.controller.huifu.BaseCommonDemo;
 import com.macro.mall.dao.OmsOrderDao;
 import com.macro.mall.dto.huifu.HFUserParam;
+
 import com.macro.mall.mapper.AddresstoidMapper;
-import com.macro.mall.mapper.UmsAdminMapper;
 import com.macro.mall.model.Addresstoid;
 import com.macro.mall.model.AddresstoidExample;
-import com.macro.mall.model.SmsCouponHistoryExample;
 import com.macro.mall.service.AUserCreateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

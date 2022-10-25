@@ -78,7 +78,7 @@ public class HfUserController {
         File directory = new File("mall-admin/src/main/resources/static/images");
 
         // 3. 发起API调用
-        Map<String, Object> response = BasePayClient.upload(request, new File(directory +"/304.jpeg"));
+        Map<String, Object> response = BasePayClient.upload(request, new File(directory +"/WechatIMG451.png"));
         System.out.println("返回数据:" + JSONObject.toJSONString(response));
 
         return null;

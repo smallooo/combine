@@ -13,8 +13,8 @@ import com.huifu.bspay.sdk.opps.core.utils.StringUtil;
 import java.io.File;
 import java.util.Map;
 
-public class BasePayClient {
-    public BasePayClient() {
+public class BasePayClientLocal {
+    public BasePayClientLocal() {
     }
 
     public static Map<String, Object> request(BaseRequest request) throws BasePayException, IllegalAccessException {

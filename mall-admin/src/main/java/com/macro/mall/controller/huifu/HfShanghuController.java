@@ -75,14 +75,14 @@ public class HfShanghuController {
         return CommonResult.success(1);
     }
 
-    @ApiOperation(value = "图片上传")
-    @RequestMapping(value = "/photoupload", method = RequestMethod.GET)
-    @ResponseBody
-    public CommonResult photoupload() {
-        //上传汇付
-        //上传阿里云
-        return CommonResult.success(1);
-    }
+//    @ApiOperation(value = "图片上传")
+//    @RequestMapping(value = "/photoupload", method = RequestMethod.GET)
+//    @ResponseBody
+//    public CommonResult photoupload() {
+//        //上传汇付
+//        //上传阿里云
+//        return CommonResult.success(1);
+//    }
 
     @ApiOperation(value = "状态查询")
     @RequestMapping(value = "/statusquery", method = RequestMethod.GET)
@@ -140,9 +140,9 @@ public class HfShanghuController {
         // 门店场所填写门店详细地址
         dto.put("store_address", "消息路");
         // 门店门头照信息或摊位照
-        dto.put("store_door_img", "afce08c5-1548-30f8-bf70-1752c3012f66");
+        dto.put("store_door_img", "1ace0d4e-467d-3010-a543-6c8fa4183803");
         // 门店店内照片或者摊位照侧面
-        dto.put("store_inner_img", "51dd13bb-6268-36d0-ac84-c4cdc19eccba");
+        dto.put("store_inner_img", "1ace0d4e-467d-3010-a543-6c8fa4183803");
 
         return dto.toJSONString();
     }
@@ -152,7 +152,7 @@ public class HfShanghuController {
         // 行业类目id
         dto.put("mcc_code", "5331");
         // 行业经营许可证资质照片
-        dto.put("image_list", "afce08c5-1548-30f8-bf70-1752c3012f66,51dd13bb-6268-36d0-ac84-c4cdc19eccba");
+        dto.put("image_list", "31ba476c-d6f7-3ec1-ad20-2cf4ce3ea5eb,31ba476c-d6f7-3ec1-ad20-2cf4ce3ea5eb");
 
         JSONArray dtoList = new JSONArray();
         dtoList.add(dto);
@@ -257,6 +257,7 @@ public class HfShanghuController {
         request.setContactPersonInfo(getContactPersonInfo());
         // 主体信息
         request.setAuthIdentityInfo(getAuthIdentityInfo());
+
 
         // 设置非必填字段
         Map<String, Object> extendInfoMap = getExtendInfos();

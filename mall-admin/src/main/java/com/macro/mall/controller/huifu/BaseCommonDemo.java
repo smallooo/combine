@@ -1,6 +1,8 @@
 package com.macro.mall.controller.huifu;
 
 
+
+import com.huifu.bspay.sdk.opps.client.BasePayClient;
 import com.huifu.bspay.sdk.opps.core.BasePay;
 import com.huifu.bspay.sdk.opps.core.config.MerConfig;
 import com.huifu.bspay.sdk.opps.core.request.BaseRequest;
