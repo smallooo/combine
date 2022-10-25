@@ -53,15 +53,15 @@ public class HFUserParam {
 
     //银行卡信息
     @ApiModelProperty(value = "银行所在省")
-    private String prov_id;
+    private String card_prov;
     @ApiModelProperty(value = "银行所在市")
-    private String area_id;
+    private String card_area;
     @ApiModelProperty(value = "结算账户名")
     private String card_name;
     @ApiModelProperty(value = "结算账号")
     private String card_no;
     @ApiModelProperty(value = "银行卡绑定手机号")
-    private String mp;
+    private String card_phone_no;
 
 
     //照片信息

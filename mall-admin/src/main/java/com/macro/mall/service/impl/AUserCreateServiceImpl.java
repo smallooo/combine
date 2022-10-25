@@ -20,13 +20,82 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Objects;
 
 @Service
 public class AUserCreateServiceImpl implements AUserCreateService {
 
     @Autowired
     private AddresstoidMapper addresstoidMapper;
+
+    @Override
+    public CommonResult createUser(HFUserParam user) throws Exception {
+        V2MerchantIntegrateRegRequest request = new V2MerchantIntegrateRegRequest();
+        request.setReqSeqId(SequenceTools.getReqSeqId32()); // 请求流水号
+        request.setReqDate(DateTools.getCurrentDateYYYYMMDD());
+        request.setUpperHuifuId("6666000122751000"); // 渠道商汇付id
+        request.setEntType("0"); // 公司类型 0 个人商户
+        request.setRegName(user.getIdname()); // 商户名称
+        request.setBusiType("1");  // 经营类型 1 实体
+
+        AddresstoidExample addresstoidExample = new AddresstoidExample(); // 经营详细地址
+        List<Addresstoid> addressList = addresstoidMapper.selectByExampleWithBLOBs(addresstoidExample);
+        for (Addresstoid addresstoid : addressList) {
+            if(Objects.equals(addresstoid.getProvicename(), user.getProv()) && Objects.equals(addresstoid.getCityname(), user.getArea()) && Objects.equals(addresstoid.getQuname(), user.getDistrict())){
+                request.setProvId(addresstoid.getProviceid().toString()); // 经营省
+                request.setAreaId(addresstoid.getCityid()); // 经营市
+                request.setDistrictId(addresstoid.getQuid().toString()); // 经营区
+            }
+        }
+        request.setDetailAddr(user.getDetailaddr()); // 经营详细地址
+
+        JSONObject dto = new JSONObject();
+        dto.put("contact_name", user.getCard_name());
+        dto.put("contact_mobile_no", user.getMobileno());
+        dto.put("contact_email", user.getEmail());
+        dto.put("contact_cert_no", user.getIdno());
+        request.setContactInfo(dto.toJSONString());
+
+        JSONObject dto1 = new JSONObject();
+        dto1.put("card_type", "1"); // 结算类型 1 对私  2 对私非法人
+        for (Addresstoid addresstoid : addressList) {
+            if(Objects.equals(addresstoid.getProvicename(), user.getCard_prov()) && Objects.equals(addresstoid.getCityname(), user.getCard_area())){
+                dto1.put("prov_id", addresstoid.getProviceid().toString()); // 银行所在省
+                dto1.put("area_id", addresstoid.getCityid()); // 银行所在市
+            }
+        }
+
+        dto1.put("card_name", user.getCard_name()); // 结算账户名
+        dto1.put("card_no", user.getCard_no()); // 结算账号
+
+        dto1.put("cert_validity_type", "0"); // 持卡人证件有效期类型
+        dto1.put("cert_begin_date", "20210203"); // 持卡人证件有效期（起始）
+        dto1.put("cert_end_date", "20410203"); // 持卡人证件有效期（截止）
+
+        dto1.put("cert_no", user.getIdno());  // 持卡人证件号码
+        dto1.put("cert_type", "00"); // 持卡人证件类型
+        dto1.put("mp", user.getCard_phone_no()); // 银行卡绑定手机号
+        request.setCardInfo(dto1.toJSONString());
+
+
+        Map<String, Object> extendInfoMap = new HashMap<>();
+        extendInfoMap.put("cash_config", getUserCashConfig()); //取现配置列表
+        extendInfoMap.put("settle_config", getUserSettleConfig()); //结算配置实体
+        extendInfoMap.put("biz_conf", getUserBizConf()); // 业务开关对象
+        extendInfoMap.put("wx_realname_info", getUserWxRealnameInfo()); // 实名认证信息
+        extendInfoMap.put("ali_conf_list", getUserAliConfList());  // 支付宝配置对象
+        //extendInfoMap.put("login_name", "15900777754"); // 管理员账号
+        extendInfoMap.put("file_info", getUserFileInfo());
+        extendInfoMap.put("async_return_url", "http://101.34.88.176:8080/hfcallback/asyncreturn"); // 异步消息接收地址(审核)
+        extendInfoMap.put("busi_async_return_url", "http://101.34.88.176:8080/hfcallback/busiasyncreturn"); // 业务开通结果异步消息接收地址
+        extendInfoMap.put("recon_resp_addr", "http://101.34.88.176:8080/hfcallback/asyncMessageHand"); // 交易异步应答地址
+        request.setExtendInfo(extendInfoMap);
+
+        // 3. 发起API调用
+        Map<String, Object> response = BaseCommonDemo.doExecute(request);
+        System.out.println("返回数据:" + JSONObject.toJSONString(response));
+        return null;
+    }
 
     private static String getUserCashConfig() {
         JSONObject dto = new JSONObject();
@@ -70,7 +139,6 @@ public class AUserCreateServiceImpl implements AUserCreateService {
         JSONObject dto = new JSONObject();
         // 是否开通结算
         dto.put("settle_flag", "Y");
-
         return dto.toJSONString();
     }
 
@@ -146,126 +214,5 @@ public class AUserCreateServiceImpl implements AUserCreateService {
 //        // 签约人身份证照片-国徽面
         dto.put("sign_identity_back_file_id", "a22eef73-b024-3d1a-a089-d34837573416");
         return dto.toJSONString();
-    }
-
-
-    @Override
-    public CommonResult createUser(HFUserParam hfUserParam) throws Exception {
-        V2MerchantIntegrateRegRequest request = new V2MerchantIntegrateRegRequest();
-        // 请求流水号
-        request.setReqSeqId(SequenceTools.getReqSeqId32());
-        // 请求日期
-        request.setReqDate(DateTools.getCurrentDateYYYYMMDD());
-        // 渠道商汇付id
-        request.setUpperHuifuId("6666000122751000");
-        // 公司类型 0 个人商户
-        request.setEntType("0");
-        // 商户名称
-        request.setRegName(hfUserParam.getIdname());
-        // 经营类型 1 实体
-        request.setBusiType("1");
-        // 经营省
-        request.setProvId("350000");
-        // 经营市
-        request.setAreaId("350600");
-        // 经营区
-        request.setDistrictId("350603");
-        // 经营详细地址
-        request.setDetailAddr("福建省漳州市龙文区中山东路1188号");
-
-        AddresstoidExample addresstoidExample = new AddresstoidExample();
-      //  AddresstoidExample.Criteria criteria = addresstoidExample.createCriteria();
-
-
-        List<Addresstoid> ppp = addresstoidMapper.selectByExampleWithBLOBs(addresstoidExample);
-
-
-
-
-
-        JSONObject dto = new JSONObject();
-        // 联系人姓名
-        dto.put("contact_name", "李铁航");
-        // 联系人手机号
-        dto.put("contact_mobile_no", "15900777754");
-        // 联系人电子邮箱
-        dto.put("contact_email", "pan.chen@icloud.com");
-        // 联系人身份证号
-        dto.put("contact_cert_no", "130827198408270012");
-        // 联系人信息
-        request.setContactInfo(dto.toJSONString());
-
-
-
-
-
-        JSONObject dto1 = new JSONObject();
-        // 结算类型 1 对私  2 对私非法人
-        dto.put("card_type", "1");
-        // 银行所在省
-        dto.put("prov_id", "350000");
-        // 银行所在市
-        dto.put("area_id", "350200");
-        // 结算账户名
-        dto.put("card_name", "李铁航");
-        // 结算账号
-        dto.put("card_no", "6227001935520110569");
-        // 持卡人证件有效期类型
-        dto.put("cert_validity_type", "0");
-        // 持卡人证件有效期（起始）
-        dto.put("cert_begin_date", "20210203");
-        // 持卡人证件有效期（截止）
-        dto.put("cert_end_date", "20410203");
-        // 持卡人证件号码
-        dto.put("cert_no", "130827198408270012");
-        // 持卡人证件类型
-        dto.put("cert_type", "00");
-        // 银行卡绑定手机号
-        dto.put("mp", "15900777754");
-        // 经营详细地址
-        request.setCardInfo(dto1.toJSONString());
-
-
-
-
-
-
-
-        // 设置非必填字段
-        // 设置非必填字段
-        Map<String, Object> extendInfoMap = new HashMap<>();
-        //取现配置列表
-        extendInfoMap.put("cash_config", getUserCashConfig());
-        //结算配置实体
-        extendInfoMap.put("settle_config", getUserSettleConfig());
-        // 业务开关对象
-        extendInfoMap.put("biz_conf", getUserBizConf());
-        // 实名认证信息
-        extendInfoMap.put("wx_realname_info", getUserWxRealnameInfo());
-        // 支付宝配置对象
-        extendInfoMap.put("ali_conf_list", getUserAliConfList());
-        // 管理员账号
-        extendInfoMap.put("login_name", "15900777754");
-
-        // 文件列表
-        extendInfoMap.put("file_info", getUserFileInfo());
-        // 异步消息接收地址(审核)
-        extendInfoMap.put("async_return_url", "");
-        // 业务开通结果异步消息接收地址
-        extendInfoMap.put("busi_async_return_url", "");
-        // 交易异步应答地址
-        extendInfoMap.put("recon_resp_addr", "");
-
-        request.setExtendInfo(extendInfoMap);
-
-
-
-
-
-
-        // 3. 发起API调用
-        Map<String, Object> response = BaseCommonDemo.doExecute(request);
-        System.out.println("返回数据:" + JSONObject.toJSONString(response));
-        return null;
     }
 }
