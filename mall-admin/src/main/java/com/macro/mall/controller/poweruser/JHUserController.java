@@ -47,7 +47,6 @@ public class JHUserController {
     public CommonResult register(UmsAdminParam umsAdminParam) {
 
 
-
         return CommonResult.success("ok");
     }
 

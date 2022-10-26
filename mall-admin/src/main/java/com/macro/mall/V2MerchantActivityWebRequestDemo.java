@@ -7,11 +7,6 @@ import com.huifu.bspay.sdk.opps.core.request.BaseRequest;
 public class V2MerchantActivityWebRequestDemo extends BaseRequest {
 
     /**
-     * 汇付客户Id
-     */
-//    @JSONField(name = "huifu_id")
-//    private String huifuId;
-    /**
      * 请求流水号
      */
     @JSONField(name = "req_seq_id")
@@ -48,14 +43,6 @@ public class V2MerchantActivityWebRequestDemo extends BaseRequest {
         this.reqSeqId = reqSeqId;
         this.reqDate = reqDate;
     }
-
-//    public String getHuifuId() {
-//        return huifuId;
-//    }
-//
-//    public void setHuifuId(String huifuId) {
-//        this.huifuId = huifuId;
-//    }
 
     public String getReqSeqId() {
         return reqSeqId;

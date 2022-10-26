@@ -52,6 +52,8 @@ public class HFUserParam {
     private String cert_end_date;
 
     //银行卡信息
+    @ApiModelProperty(value = "银行名称编号")
+    private String bank_name_id;
     @ApiModelProperty(value = "银行所在省")
     private String card_prov;
     @ApiModelProperty(value = "银行所在市")
@@ -63,7 +65,6 @@ public class HFUserParam {
     @ApiModelProperty(value = "银行卡绑定手机号")
     private String card_phone_no;
 
-
     //照片信息
     @ApiModelProperty(value = "身份证正")
     private String id_img_front;
@@ -73,9 +74,10 @@ public class HFUserParam {
     private String card_front;
     @ApiModelProperty(value = "银行卡反")
     private String card_back;
-
-
-
+    @ApiModelProperty(value = "门店门头照信息或摊位照")
+    private String shop_photo_front;
+    @ApiModelProperty(value = "门店店内照片或者摊位照侧面")
+    private String shop_photo_inside;
 
     //费率信息
     @ApiModelProperty(value = "是否开通取现")
@@ -88,7 +90,4 @@ public class HFUserParam {
     private String out_fee_flag;
 
     //ali配置
-
-
-
 }

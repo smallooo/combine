@@ -30,7 +30,7 @@ CREATE TABLE `final_users` (
                                      `show_status` int(2) DEFAULT NULL,
                                      `sort` int(11) DEFAULT NULL,
                                      PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='最终用户表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商户表';
 
 
 -- ----------------------------
@@ -48,19 +48,19 @@ CREATE TABLE `final_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='正扫交易记录';
 
 
--- ----------------------------
--- Table structure for 反扫交易记录
--- ----------------------------
-DROP TABLE IF EXISTS `final_users`;
-CREATE TABLE `final_users` (
-                               `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                               `name` varchar(100) DEFAULT NULL,
-                               `icon` varchar(500) DEFAULT NULL COMMENT '分类图标',
-                               `help_count` int(11) DEFAULT NULL COMMENT '专题数量',
-                               `show_status` int(2) DEFAULT NULL,
-                               `sort` int(11) DEFAULT NULL,
-                               PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='反扫交易记录';
+-- -- ----------------------------
+-- -- Table structure for 反扫交易记录
+-- -- ----------------------------
+-- DROP TABLE IF EXISTS `final_users`;
+-- CREATE TABLE `final_users` (
+--                                `id` bigint(20) NOT NULL AUTO_INCREMENT,
+--                                `name` varchar(100) DEFAULT NULL,
+--                                `icon` varchar(500) DEFAULT NULL COMMENT '分类图标',
+--                                `help_count` int(11) DEFAULT NULL COMMENT '专题数量',
+--                                `show_status` int(2) DEFAULT NULL,
+--                                `sort` int(11) DEFAULT NULL,
+--                                PRIMARY KEY (`id`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='反扫交易记录';
 
 
 -- ----------------------------

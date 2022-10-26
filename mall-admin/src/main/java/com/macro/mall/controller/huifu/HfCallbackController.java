@@ -8,19 +8,25 @@ import com.macro.mall.common.api.CommonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
+
+
 
 @Controller
 @Api(tags = "HfNotifyController")
 @Tag(name = "HfNotifyController", description = "通知回调")
 @RequestMapping("/hfcallback")
 public class HfCallbackController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(HfCallbackController.class);
+
     @ApiOperation(value = "申请单审核结果")
     @RequestMapping(value = "/asyncreturn", method = RequestMethod.POST)
     @ResponseBody
