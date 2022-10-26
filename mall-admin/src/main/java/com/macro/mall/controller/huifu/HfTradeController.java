@@ -44,6 +44,12 @@ public class HfTradeController {
     @ResponseBody
     public CommonResult jspay() {
         CommonResult result = hfTradeService.tradePaymentJspay();
+        //固定码
+
+
+        //单次码  设定金额
+
+
         return CommonResult.success(1);
     }
 

@@ -167,4 +167,48 @@ public class HfTradeServiceImpl implements HfTradeService {
 
         return null;
     }
+
+
+    //商户分账配置查询
+    @Override
+    public CommonResult split() throws Exception {
+
+        return null;
+    }
+
+    //账户余额查询
+    @Override
+    public CommonResult acctpaymentBalance() throws Exception {
+        return null;
+    }
+
+    //余额支付
+    @Override
+    public CommonResult acctpaymentPay() throws Exception {
+        return null;
+    }
+
+    //交易、结算文件查询
+    @Override
+    public CommonResult checkFile() throws Exception {
+        return null;
+    }
+
+    //交易确认查询接口
+    @Override
+    public CommonResult paymentDelaytransConfirm() throws Exception {
+        return null;
+    }
+
+    //取现接口
+    @Override
+    public CommonResult settlementEnchashment() throws Exception {
+        return null;
+    }
+
+    //交易分账明细查询接口
+    @Override
+    public CommonResult transSplitQuery() throws Exception {
+        return null;
+    }
 }

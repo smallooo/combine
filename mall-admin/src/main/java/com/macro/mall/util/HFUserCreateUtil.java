@@ -1,82 +1,69 @@
-package com.macro.mall.service.impl;
+package com.macro.mall.util;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huifu.bspay.sdk.opps.core.request.V2MerchantIntegrateRegRequest;
 import com.huifu.bspay.sdk.opps.core.utils.DateTools;
 import com.huifu.bspay.sdk.opps.core.utils.SequenceTools;
-import com.macro.mall.common.api.CommonResult;
 import com.macro.mall.controller.huifu.BaseCommonDemo;
-import com.macro.mall.dao.OmsOrderDao;
 import com.macro.mall.dto.huifu.HFUserParam;
-
 import com.macro.mall.mapper.AddresstoidMapper;
 import com.macro.mall.model.Addresstoid;
 import com.macro.mall.model.AddresstoidExample;
-import com.macro.mall.service.AUserCreateService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-@Service
-public class AUserCreateServiceImpl implements AUserCreateService {
-
-    @Autowired
-    private AddresstoidMapper addresstoidMapper;
-
-    @Override
-    public CommonResult createUser(HFUserParam user) throws Exception {
+public class HFUserCreateUtil {
+    public static void extracted(HFUserParam hFUserParam, AddresstoidMapper addresstoidMapper) throws Exception {
         V2MerchantIntegrateRegRequest request = new V2MerchantIntegrateRegRequest();
         request.setReqSeqId(SequenceTools.getReqSeqId32()); // 请求流水号
         request.setReqDate(DateTools.getCurrentDateYYYYMMDD());
         request.setUpperHuifuId("6666000122751000"); // 渠道商汇付id
         request.setEntType("0"); // 公司类型 0 个人商户
-        request.setRegName(user.getIdname()); // 商户名称
+        request.setRegName(hFUserParam.getIdname()); // 商户名称
         request.setBusiType("1");  // 经营类型 1 实体
 
         AddresstoidExample addresstoidExample = new AddresstoidExample(); // 经营详细地址
         List<Addresstoid> addressList = addresstoidMapper.selectByExampleWithBLOBs(addresstoidExample);
         for (Addresstoid addresstoid : addressList) {
-            if(Objects.equals(addresstoid.getProvicename(), user.getProv()) && Objects.equals(addresstoid.getCityname(), user.getArea()) && Objects.equals(addresstoid.getQuname(), user.getDistrict())){
+            if(Objects.equals(addresstoid.getProvicename(), hFUserParam.getProv()) && Objects.equals(addresstoid.getCityname(), hFUserParam.getArea()) && Objects.equals(addresstoid.getQuname(), hFUserParam.getDistrict())){
                 request.setProvId(addresstoid.getProviceid().toString()); // 经营省
                 request.setAreaId(addresstoid.getCityid()); // 经营市
                 request.setDistrictId(addresstoid.getQuid().toString()); // 经营区
             }
         }
-        request.setDetailAddr(user.getDetailaddr()); // 经营详细地址
+        request.setDetailAddr(hFUserParam.getDetailaddr()); // 经营详细地址
 
         JSONObject dto = new JSONObject();
-        dto.put("contact_name", user.getCard_name());
-        dto.put("contact_mobile_no", user.getMobileno());
-        dto.put("contact_email", user.getEmail());
-        dto.put("contact_cert_no", user.getIdno());
+        dto.put("contact_name", hFUserParam.getCard_name());
+        dto.put("contact_mobile_no", hFUserParam.getMobileno());
+        dto.put("contact_email", hFUserParam.getEmail());
+        dto.put("contact_cert_no", hFUserParam.getIdno());
         request.setContactInfo(dto.toJSONString());
 
         JSONObject dto1 = new JSONObject();
         dto1.put("card_type", "1"); // 结算类型 1 对私  2 对私非法人
         for (Addresstoid addresstoid : addressList) {
-            if(Objects.equals(addresstoid.getProvicename(), user.getCard_prov()) && Objects.equals(addresstoid.getCityname(), user.getCard_area())){
+            if(Objects.equals(addresstoid.getProvicename(), hFUserParam.getCard_prov()) && Objects.equals(addresstoid.getCityname(), hFUserParam.getCard_area())){
                 dto1.put("prov_id", addresstoid.getProviceid().toString()); // 银行所在省
                 dto1.put("area_id", addresstoid.getCityid()); // 银行所在市
             }
         }
 
-        dto1.put("card_name", user.getCard_name()); // 结算账户名
-        dto1.put("card_no", user.getCard_no()); // 结算账号
+        dto1.put("card_name", hFUserParam.getCard_name()); // 结算账户名
+        dto1.put("card_no", hFUserParam.getCard_no()); // 结算账号
 
         dto1.put("cert_validity_type", "0"); // 持卡人证件有效期类型
         dto1.put("cert_begin_date", "20210203"); // 持卡人证件有效期（起始）
         dto1.put("cert_end_date", "20410203"); // 持卡人证件有效期（截止）
 
-        dto1.put("cert_no", user.getIdno());  // 持卡人证件号码
+        dto1.put("cert_no", hFUserParam.getIdno());  // 持卡人证件号码
         dto1.put("cert_type", "00"); // 持卡人证件类型
-        dto1.put("mp", user.getCard_phone_no()); // 银行卡绑定手机号
+        dto1.put("mp", hFUserParam.getCard_phone_no()); // 银行卡绑定手机号
         request.setCardInfo(dto1.toJSONString());
-
 
         Map<String, Object> extendInfoMap = new HashMap<>();
         extendInfoMap.put("cash_config", getUserCashConfig()); //取现配置列表
@@ -94,10 +81,9 @@ public class AUserCreateServiceImpl implements AUserCreateService {
         // 3. 发起API调用
         Map<String, Object> response = BaseCommonDemo.doExecute(request);
         System.out.println("返回数据:" + JSONObject.toJSONString(response));
-        return null;
     }
 
-    private static String getUserCashConfig() {
+    public static String getUserCashConfig() {
         JSONObject dto = new JSONObject();
         // 是否开通取现
         dto.put("switch_state", "1");
@@ -114,7 +100,7 @@ public class AUserCreateServiceImpl implements AUserCreateService {
         return dtoList.toJSONString();
     }
 
-    private static String getUserSettleConfig() {
+    public static String getUserSettleConfig() {
         JSONObject dto = new JSONObject();
         // 结算周期
         dto.put("settle_cycle", "T1");
@@ -135,14 +121,14 @@ public class AUserCreateServiceImpl implements AUserCreateService {
         return dto.toJSONString();
     }
 
-    private static String getUserBizConf() {
+    public static String getUserBizConf() {
         JSONObject dto = new JSONObject();
         // 是否开通结算
         dto.put("settle_flag", "Y");
         return dto.toJSONString();
     }
 
-    private static String getUserWxRealnameInfo() {
+    public static String getUserWxRealnameInfo() {
         JSONObject dto = new JSONObject();
         // 支付场景
         dto.put("pay_scene", "1");
@@ -168,7 +154,7 @@ public class AUserCreateServiceImpl implements AUserCreateService {
         return dto.toJSONString();
     }
 
-    private static String getUserAliConfList() {
+    public static String getUserAliConfList() {
         JSONObject dto = new JSONObject();
         // 支付场景
         dto.put("pay_scene", "1");
@@ -183,7 +169,7 @@ public class AUserCreateServiceImpl implements AUserCreateService {
         return dtoList.toJSONString();
     }
 
-    private static String getUserFileInfo() {
+    public static String getUserFileInfo() {
         JSONObject dto = new JSONObject();
         // 法人身份证反面
         dto.put("legal_cert_back_pic", "9b73a96e-12b6-37b9-916a-59a611713b80");
@@ -215,4 +201,6 @@ public class AUserCreateServiceImpl implements AUserCreateService {
         dto.put("sign_identity_back_file_id", "a22eef73-b024-3d1a-a089-d34837573416");
         return dto.toJSONString();
     }
+
+
 }
