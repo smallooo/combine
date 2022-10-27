@@ -19,31 +19,39 @@ public class HFUserParam {
     @NotEmpty
     @ApiModelProperty(value = "密码", required = true)
     private String password;
-    @ApiModelProperty(value = "用户头像")
-    private String icon;
+//    @ApiModelProperty(value = "用户头像")
+//    private String icon;
     @Email
     @ApiModelProperty(value = "邮箱")
     private String email;
-    @ApiModelProperty(value = "用户昵称")
-    private String nickName;
-    @ApiModelProperty(value = "备注")
-    private String note;
+//    @ApiModelProperty(value = "用户昵称")
+//    private String nickName;
+//    @ApiModelProperty(value = "备注")
+//    private String note;
 
     //用户信息
+    @NotEmpty
     @ApiModelProperty(value = "用户姓名")
     private String idname;
+    @NotEmpty
     @ApiModelProperty(value = "经营省")
-    private String prov;
+    private String bussines_prov;
+    @NotEmpty
     @ApiModelProperty(value = "经营市")
-    private String area;
+    private String bussines_area;
+    @NotEmpty
     @ApiModelProperty(value = "经营区")
-    private String district;
+    private String bussines_district;
+    @NotEmpty
     @ApiModelProperty(value = "经营详细地址")
     private String detailaddr;
+    @NotEmpty
     @ApiModelProperty(value = "手机号")
+    @NotEmpty
     private String mobileno;
     @ApiModelProperty(value = "身份证号")
     private String idno;
+    @NotEmpty
     @ApiModelProperty(value = "持卡人证件有效期类型")
     private String cert_validity_type;
     @ApiModelProperty(value = "持卡人证件有效期（起始）")

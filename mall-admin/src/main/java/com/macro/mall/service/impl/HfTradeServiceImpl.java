@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
-import static com.macro.mall.BaseCommonDemo.doExecute;
+import static com.macro.mall.controller.huifu.BaseCommonDemo.doExecute;
 
 @Service
 public class HfTradeServiceImpl implements HfTradeService {

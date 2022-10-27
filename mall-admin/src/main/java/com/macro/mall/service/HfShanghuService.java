@@ -11,6 +11,9 @@ public interface HfShanghuService {
      */
     CommonResult interateRegRequest(HFUserParam hFUserParam) throws Exception;
 
+
+    CommonResult interateRegByWebRequest() throws Exception;
+
     /**
      * 商户统一变更接口
      */

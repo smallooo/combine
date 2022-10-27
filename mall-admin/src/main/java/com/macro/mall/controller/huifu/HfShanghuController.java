@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.macro.mall.BaseCommonDemo.doInit;
 import static com.macro.mall.controller.huifu.BaseCommonDemo.doExecute;
 
 /**

@@ -29,7 +29,7 @@ public class HFUserCreateUtil {
         AddresstoidExample addresstoidExample = new AddresstoidExample(); // 经营详细地址
         List<Addresstoid> addressList = addresstoidMapper.selectByExampleWithBLOBs(addresstoidExample);
         for (Addresstoid addresstoid : addressList) {
-            if(Objects.equals(addresstoid.getProvicename(), hFUserParam.getProv()) && Objects.equals(addresstoid.getCityname(), hFUserParam.getArea()) && Objects.equals(addresstoid.getQuname(), hFUserParam.getDistrict())){
+            if(Objects.equals(addresstoid.getProvicename(), hFUserParam.getBussines_prov()) && Objects.equals(addresstoid.getCityname(), hFUserParam.getBussines_area()) && Objects.equals(addresstoid.getQuname(), hFUserParam.getBussines_district())){
                 request.setProvId(addresstoid.getProviceid().toString()); // 经营省
                 request.setAreaId(addresstoid.getCityid()); // 经营市
                 request.setDistrictId(addresstoid.getQuid().toString()); // 经营区
