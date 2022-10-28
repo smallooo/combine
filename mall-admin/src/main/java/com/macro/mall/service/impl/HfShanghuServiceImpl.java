@@ -5,6 +5,8 @@ import com.huifu.bspay.sdk.opps.core.BasePay;
 import com.huifu.bspay.sdk.opps.core.config.MerConfig;
 import com.huifu.bspay.sdk.opps.core.request.V2MerchantBasicdataQueryRequest;
 import com.huifu.bspay.sdk.opps.core.request.V2MerchantIntegrateUpdateRequest;
+import com.huifu.bspay.sdk.opps.core.request.V2MerchantSplitConfigRequest;
+import com.huifu.bspay.sdk.opps.core.request.V2MerchantSplitQueryRequest;
 import com.huifu.bspay.sdk.opps.core.utils.DateTools;
 import com.huifu.bspay.sdk.opps.core.utils.SequenceTools;
 import com.macro.mall.V2MerchantActivityWebRequestDemo;
@@ -15,7 +17,6 @@ import com.macro.mall.service.HfShanghuService;
 import com.macro.mall.util.HFUserCreateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Map;
 
 import static com.macro.mall.controller.huifu.BaseCommonDemo.doExecute;
@@ -32,9 +33,9 @@ public class HfShanghuServiceImpl implements HfShanghuService {
     public CommonResult interateRegRequest(HFUserParam hFUserParam) throws Exception {
 
         HFUserCreateUtil.extracted(hFUserParam,addresstoidMapper);
+
         return null;
     }
-
 
     // 生成统一进件网页版
     @Override
@@ -98,6 +99,43 @@ public class HfShanghuServiceImpl implements HfShanghuService {
         request.setExtendInfo(extendInfoMap);
         Map<String, Object> response = doExecute(request);
         System.out.println("返回数据:" + JSONObject.toJSONString(response));
+        return null;
+    }
+
+    @Override
+    public CommonResult setSplit() throws Exception {
+        V2MerchantSplitConfigRequest request = new V2MerchantSplitConfigRequest();  // 2.组装请求参数
+        request.setReqSeqId(SequenceTools.getReqSeqId32());  // 请求流水号
+        request.setReqDate(DateTools.getCurrentDateYYYYMMDD());  // 请求时间
+        request.setProductId("ZDTEST");  // 产品编号
+        request.setHuifuId("6666000003113429");
+        request.setRuleOrigin("01"); // 分账规则来源
+        request.setRepealFlag("Y"); // 分账是否支持撤销交易
+        request.setRefundFlag("Y"); // 分账是否支持退货交易
+        request.setDivFlag("Y");  // 分账开关
+        request.setApplyRatio("90"); // 最大分账比例
+        request.setStartType("0");  // 生效类型
+//        // 设置非必填字段
+//        Map<String, Object> extendInfoMap = getExtendInfos();
+//        request.setExtendInfo(extendInfoMap);
+        // 3. 发起API调用
+        Map<String, Object> response = doExecute(request);
+        System.out.println("返回数据:" + JSONObject.toJSONString(response));
+        return null;
+    }
+
+    @Override
+    public CommonResult checkSplit() throws Exception {
+        V2MerchantSplitQueryRequest request = new V2MerchantSplitQueryRequest();  // 2.组装请求参数
+        request.setReqSeqId(SequenceTools.getReqSeqId32());  // 请求流水号
+        request.setReqDate(DateTools.getCurrentDateYYYYMMDD());  // 请求时间
+        request.setProductId("ZDTEST");  // 产品编号
+        request.setHuifuId("6666000003113429");  // 汇付客户Id
+//        Map<String, Object> extendInfoMap = getExtendInfos();   // 设置非必填字段
+//        request.setExtendInfo(extendInfoMap);
+        Map<String, Object> response = doExecute(request);      // 3. 发起API调用
+        System.out.println("返回数据:" + JSONObject.toJSONString(response));
+
         return null;
     }
 

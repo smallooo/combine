@@ -56,9 +56,9 @@ public class HFUserCreateUtil {
         dto1.put("card_name", hFUserParam.getCard_name()); // 结算账户名
         dto1.put("card_no", hFUserParam.getCard_no()); // 结算账号
 
-        dto1.put("cert_validity_type", "0"); // 持卡人证件有效期类型
-        dto1.put("cert_begin_date", "20210203"); // 持卡人证件有效期（起始）
-        dto1.put("cert_end_date", "20410203"); // 持卡人证件有效期（截止）
+        dto1.put("cert_validity_type", hFUserParam.getCert_validity_type()); // 持卡人证件有效期类型 1:长期有效 0:非长期有效；
+        dto1.put("cert_begin_date", hFUserParam.getCert_begin_date()); // 持卡人证件有效期（起始）
+        dto1.put("cert_end_date", hFUserParam.getCert_end_date()); // 持卡人证件有效期（截止）
 
         dto1.put("cert_no", hFUserParam.getIdno());  // 持卡人证件号码
         dto1.put("cert_type", "00"); // 持卡人证件类型
@@ -69,13 +69,14 @@ public class HFUserCreateUtil {
         extendInfoMap.put("cash_config", getUserCashConfig()); //取现配置列表
         extendInfoMap.put("settle_config", getUserSettleConfig()); //结算配置实体
         extendInfoMap.put("biz_conf", getUserBizConf()); // 业务开关对象
-        extendInfoMap.put("wx_realname_info", getUserWxRealnameInfo()); // 实名认证信息
+        extendInfoMap.put("wx_realname_info", getUserWxRealnameInfo(hFUserParam)); // 实名认证信息
         extendInfoMap.put("ali_conf_list", getUserAliConfList());  // 支付宝配置对象
         //extendInfoMap.put("login_name", "15900777754"); // 管理员账号
-        extendInfoMap.put("file_info", getUserFileInfo());
-        extendInfoMap.put("async_return_url", "http://101.34.88.176:8080/hfcallback/asyncreturn"); // 异步消息接收地址(审核)
-        extendInfoMap.put("busi_async_return_url", "http://101.34.88.176:8080/hfcallback/busiasyncreturn"); // 业务开通结果异步消息接收地址
-        extendInfoMap.put("recon_resp_addr", "http://101.34.88.176:8080/hfcallback/asyncMessageHand"); // 交易异步应答地址
+        extendInfoMap.put("file_info", getUserFileInfo(hFUserParam));
+        extendInfoMap.put("async_return_url", "http://47.97.159.194:8080/hfcallback/asyncreturn"); // 异步消息接收地址(审核)
+        extendInfoMap.put("busi_async_return_url", "http://47.97.159.194:8080/hfcallback/busiasyncreturn"); // 业务开通结果异步消息接收地址
+        extendInfoMap.put("recon_resp_addr", "http://47.97.159.194:8080/hfcallback/asyncMessageHand"); // 交易异步应答地址
+
         request.setExtendInfo(extendInfoMap);
 
         // 3. 发起API调用
@@ -128,28 +129,32 @@ public class HFUserCreateUtil {
         return dto.toJSONString();
     }
 
-    public static String getUserWxRealnameInfo() {
+    public static String getUserWxRealnameInfo(HFUserParam hFUserParam) {
         JSONObject dto = new JSONObject();
         // 支付场景
         dto.put("pay_scene", "1");
         // 联系人证件号码
-        dto.put("contact_id_card_number", "130827198408270012");
+        dto.put("contact_id_card_number", hFUserParam.getIdno());
         // 实名认证类型
         dto.put("realname_info_type", "A");
         // 子渠道号
         dto.put("pay_channel_id", "00004631");
         // 联系人姓名
-        dto.put("name", "李铁航");
+        dto.put("name", hFUserParam.getIdname());
         // 联系人手机号
-        dto.put("mobile", "15900777754");
+        dto.put("mobile", hFUserParam.getMobileno());
         // 联系人类型
         dto.put("contact_type", "LEGAL");
         // 联系人证件类型
         dto.put("contact_id_doc_type", "00");
         // 联系人证件有效期开始时间
-        dto.put("contact_period_begin_date", "20210203");
+        dto.put("contact_period_begin_date", hFUserParam.getCert_begin_date());
         // 联系人证件有效期结束时间
-        dto.put("contact_period_end_date", "20410203");
+        if(hFUserParam.getCert_validity_type().equals("0")) {
+            dto.put("contact_period_end_date", hFUserParam.getCert_end_date());
+        }else{
+            dto.put("contact_period_end_date", "长期");
+        }
         dto.put("finance_institution_flag", "N");
         return dto.toJSONString();
     }
@@ -169,36 +174,41 @@ public class HFUserCreateUtil {
         return dtoList.toJSONString();
     }
 
-    public static String getUserFileInfo() {
+    public static String getUserFileInfo(HFUserParam hFUserParam) {
         JSONObject dto = new JSONObject();
         // 法人身份证反面
-        dto.put("legal_cert_back_pic", "9b73a96e-12b6-37b9-916a-59a611713b80");
+        dto.put("legal_cert_back_pic", hFUserParam.getId_img_back());
         // 法人身份证正面
-        dto.put("legal_cert_front_pic", "31ba476c-d6f7-3ec1-ad20-2cf4ce3ea5eb");
+        dto.put("legal_cert_front_pic", hFUserParam.getId_img_front());
         // 结算卡反面
-        dto.put("settle_card_back_pic", "ce6c8b31-a2ae-3a03-8d55-d626cc967385");
+        dto.put("settle_card_back_pic", hFUserParam.getCard_back());
         // 结算卡正面
-        dto.put("settle_card_front_pic", "0681f121-aec4-3946-9157-73e42d936b6f");
+        dto.put("settle_card_front_pic", hFUserParam.getCard_front());
         // 结算人身份证反面
-        dto.put("settle_cert_back_pic", "a22eef73-b024-3d1a-a089-d34837573416");
+        dto.put("settle_cert_back_pic", hFUserParam.getId_img_back());
         // 结算人身份证正面
-        dto.put("settle_cert_front_pic", "31ba476c-d6f7-3ec1-ad20-2cf4ce3ea5eb");
+        dto.put("settle_cert_front_pic", hFUserParam.getId_img_front());
         // 个人商户身份证件正面照片
-        dto.put("identification_front_pic", "31ba476c-d6f7-3ec1-ad20-2cf4ce3ea5eb");
+        dto.put("identification_front_pic", hFUserParam.getId_img_front());
         // 个人商户身份证件反面照片
-        dto.put("identification_back_pic", "a22eef73-b024-3d1a-a089-d34837573416");
+        dto.put("identification_back_pic", hFUserParam.getId_img_back());
         // 联系人身份证正面照
-        dto.put("contact_id_front_pic", "856ec6fa-5632-3646-8e9f-4ee52cd0a7b1");
+        dto.put("contact_id_front_pic", hFUserParam.getId_img_front());
         // 联系人身份证反面照
-        dto.put("contact_id_back_pic", "31ba476c-d6f7-3ec1-ad20-2cf4ce3ea5eb");
+        dto.put("contact_id_back_pic", hFUserParam.getId_img_back());
         // 持卡人身份证人像面
-        dto.put("cert_front_pic", "31ba476c-d6f7-3ec1-ad20-2cf4ce3ea5eb");
+        dto.put("cert_front_pic", hFUserParam.getId_img_front());
         // 持卡人身份证国徽面
-        dto.put("cert_back_pic", "a22eef73-b024-3d1a-a089-d34837573416");
+        dto.put("cert_back_pic", hFUserParam.getId_img_back());
         // 签约人身份证照片-人像面
-        dto.put("sign_identity_front_file_id", "31ba476c-d6f7-3ec1-ad20-2cf4ce3ea5eb");
+        dto.put("sign_identity_front_file_id", hFUserParam.getId_img_front());
 //        // 签约人身份证照片-国徽面
-        dto.put("sign_identity_back_file_id", "a22eef73-b024-3d1a-a089-d34837573416");
+        dto.put("sign_identity_back_file_id", hFUserParam.getId_img_back());
+
+        // 公司照片一
+        dto.put("store_header_pic", hFUserParam.getShop_photo_front());
+        // 公司照片二
+        dto.put("store_indoor_pic", hFUserParam.getShop_photo_inside());
         return dto.toJSONString();
     }
 

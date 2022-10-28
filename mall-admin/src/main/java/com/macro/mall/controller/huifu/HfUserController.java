@@ -118,6 +118,8 @@ public class HfUserController {
         return CommonResult.success("");
     }
 
+
+
     @ApiOperation(value = "上传图片")
     @RequestMapping(value = "/uploadphoto", method = RequestMethod.POST)
     @ResponseBody
@@ -132,9 +134,7 @@ public class HfUserController {
         File directory = new File("mall-admin/src/main/resources/static/images"); //获取项目路径
         Map<String, Object> response = BasePayClient.upload(request, new File(directory +"/WechatIMG451.png"));
         System.out.println("返回数据:" + JSONObject.toJSONString(response));
-
         //保存信息至数据库---
-
         return null;
     }
 }

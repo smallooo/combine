@@ -25,6 +25,10 @@ public interface HfShanghuService {
     CommonResult getShanghuDetail() throws Exception;
 
 
+    // 设置分账规则
+    CommonResult setSplit() throws Exception;
 
+    // 查询分账规则
+    CommonResult checkSplit() throws Exception;
 
 }
