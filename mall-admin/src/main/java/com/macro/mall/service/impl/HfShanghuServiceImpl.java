@@ -3,15 +3,15 @@ package com.macro.mall.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.huifu.bspay.sdk.opps.core.BasePay;
 import com.huifu.bspay.sdk.opps.core.config.MerConfig;
-import com.huifu.bspay.sdk.opps.core.request.V2MerchantBasicdataQueryRequest;
-import com.huifu.bspay.sdk.opps.core.request.V2MerchantIntegrateUpdateRequest;
-import com.huifu.bspay.sdk.opps.core.request.V2MerchantSplitConfigRequest;
-import com.huifu.bspay.sdk.opps.core.request.V2MerchantSplitQueryRequest;
+import com.huifu.bspay.sdk.opps.core.request.*;
 import com.huifu.bspay.sdk.opps.core.utils.DateTools;
 import com.huifu.bspay.sdk.opps.core.utils.SequenceTools;
 import com.macro.mall.V2MerchantActivityWebRequestDemo;
 import com.macro.mall.common.api.CommonResult;
+import com.macro.mall.controller.huifu.BaseCommonDemoLocal;
 import com.macro.mall.dto.huifu.HFUserParam;
+import com.macro.mall.dto.huifu.MerchantForwardParam;
+import com.macro.mall.dto.huifu.MerchantForwardResult;
 import com.macro.mall.mapper.AddresstoidMapper;
 import com.macro.mall.service.HfShanghuService;
 import com.macro.mall.util.HFUserCreateUtil;
@@ -39,8 +39,7 @@ public class HfShanghuServiceImpl implements HfShanghuService {
 
     // 生成统一进件网页版
     @Override
-    public CommonResult interateRegByWebRequest() throws Exception {
-
+    public MerchantForwardResult interateRegByWebRequest(MerchantForwardParam merchantForwardParam) throws Exception {
         BasePay.debug = true;
         BasePay.prodMode = BasePay.MODE_PROD;
         MerConfig merConfig = new MerConfig();
@@ -54,20 +53,35 @@ public class HfShanghuServiceImpl implements HfShanghuService {
             ex.printStackTrace();
         }
 
-        doInit(merConfig);
+        BaseCommonDemoLocal.doInit(merConfig);
 
         V2MerchantActivityWebRequestDemo request = new V2MerchantActivityWebRequestDemo();
         request.setReqSeqId(SequenceTools.getReqSeqId32());
         request.setReqDate(DateTools.getCurrentDateYYYYMMDD());
         request.setUpperHuifuId("6666000122751000");
-        request.setphone("13567889160");
-        request.setstoreId("SH001");
+        request.setphone(merchantForwardParam.getPhone());
+        request.setstoreId(merchantForwardParam.getPhone());
         request.setexpires("50000");
 
-        Map<String, Object> response = doExecute(request);
+        Map<String, Object> response = BaseCommonDemoLocal.doExecute(request);
+
+        JSONObject result = JSONObject.parseObject(String.valueOf(response)) ;
         System.out.println("返回数据:" + JSONObject.toJSONString(response));
 
-        return CommonResult.success(1);
+        MerchantForwardResult returnresult = new MerchantForwardResult();
+
+//        returnresult.setResp_desc((String) result.get("resp_desc"));
+//        returnresult.setResp_code((String) result.get("resp_code"));
+//        returnresult.setResp_desc((String) result.get("req_seq_id"));
+
+        returnresult.setResp_desc( result.getString("resp_desc"));
+        returnresult.setReq_seq_id( result.getString("req_seq_id"));
+        returnresult.setProduct_id( result.getString("product_id"));
+        returnresult.setRep_date( result.getString("req_date"));
+        returnresult.setResp_code( result.getString("resp_code"));
+        returnresult.setUrl( result.getString("url"));
+
+        return returnresult;
     }
 
 
@@ -136,6 +150,22 @@ public class HfShanghuServiceImpl implements HfShanghuService {
         Map<String, Object> response = doExecute(request);      // 3. 发起API调用
         System.out.println("返回数据:" + JSONObject.toJSONString(response));
 
+        return null;
+    }
+
+    @Override
+    public CommonResult alirealnamequery() throws Exception {
+        V2MerchantBusiAliRealnameQueryRequest request = new V2MerchantBusiAliRealnameQueryRequest();
+        // 请求流水号
+        request.setReqSeqId(SequenceTools.getReqSeqId32());
+        // 请求时间
+        request.setReqDate(DateTools.getCurrentDateYYYYMMDD());
+        // 商家汇付ID
+        request.setHuifuId("");
+
+        // 3. 发起API调用
+        Map<String, Object> response = doExecute(request);
+        System.out.println("返回数据:" + JSONObject.toJSONString(response));
         return null;
     }
 

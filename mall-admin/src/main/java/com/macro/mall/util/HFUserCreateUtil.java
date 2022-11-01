@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class HFUserCreateUtil {
-    public static void extracted(HFUserParam hFUserParam, AddresstoidMapper addresstoidMapper) throws Exception {
+    public static Map<String, Object> extracted(HFUserParam hFUserParam, AddresstoidMapper addresstoidMapper) throws Exception {
         V2MerchantIntegrateRegRequest request = new V2MerchantIntegrateRegRequest();
         request.setReqSeqId(SequenceTools.getReqSeqId32()); // 请求流水号
         request.setReqDate(DateTools.getCurrentDateYYYYMMDD());
@@ -28,13 +28,13 @@ public class HFUserCreateUtil {
 
         AddresstoidExample addresstoidExample = new AddresstoidExample(); // 经营详细地址
         List<Addresstoid> addressList = addresstoidMapper.selectByExampleWithBLOBs(addresstoidExample);
-        for (Addresstoid addresstoid : addressList) {
-            if(Objects.equals(addresstoid.getProvicename(), hFUserParam.getBussines_prov()) && Objects.equals(addresstoid.getCityname(), hFUserParam.getBussines_area()) && Objects.equals(addresstoid.getQuname(), hFUserParam.getBussines_district())){
-                request.setProvId(addresstoid.getProviceid().toString()); // 经营省
-                request.setAreaId(addresstoid.getCityid()); // 经营市
-                request.setDistrictId(addresstoid.getQuid().toString()); // 经营区
-            }
-        }
+//        for (Addresstoid addresstoid : addressList) {
+//            if(Objects.equals(addresstoid.getProvicename(), hFUserParam.getBussines_prov()) && Objects.equals(addresstoid.getCityname(), hFUserParam.getBussines_area()) && Objects.equals(addresstoid.getQuname(), hFUserParam.getBussines_district())){
+//                request.setProvId(addresstoid.getProviceid().toString()); // 经营省
+//                request.setAreaId(addresstoid.getCityid()); // 经营市
+//                request.setDistrictId(addresstoid.getQuid().toString()); // 经营区
+//            }
+//        }
         request.setDetailAddr(hFUserParam.getDetailaddr()); // 经营详细地址
 
         JSONObject dto = new JSONObject();
@@ -46,12 +46,12 @@ public class HFUserCreateUtil {
 
         JSONObject dto1 = new JSONObject();
         dto1.put("card_type", "1"); // 结算类型 1 对私  2 对私非法人
-        for (Addresstoid addresstoid : addressList) {
-            if(Objects.equals(addresstoid.getProvicename(), hFUserParam.getCard_prov()) && Objects.equals(addresstoid.getCityname(), hFUserParam.getCard_area())){
-                dto1.put("prov_id", addresstoid.getProviceid().toString()); // 银行所在省
-                dto1.put("area_id", addresstoid.getCityid()); // 银行所在市
-            }
-        }
+//        for (Addresstoid addresstoid : addressList) {
+//            if(Objects.equals(addresstoid.getProvicename(), hFUserParam.getCard_prov()) && Objects.equals(addresstoid.getCityname(), hFUserParam.getCard_area())){
+//                dto1.put("prov_id", addresstoid.getProviceid().toString()); // 银行所在省
+//                dto1.put("area_id", addresstoid.getCityid()); // 银行所在市
+//            }
+//        }
 
         dto1.put("card_name", hFUserParam.getCard_name()); // 结算账户名
         dto1.put("card_no", hFUserParam.getCard_no()); // 结算账号
@@ -82,6 +82,7 @@ public class HFUserCreateUtil {
         // 3. 发起API调用
         Map<String, Object> response = BaseCommonDemo.doExecute(request);
         System.out.println("返回数据:" + JSONObject.toJSONString(response));
+        return response;
     }
 
     public static String getUserCashConfig() {
@@ -117,6 +118,7 @@ public class HFUserCreateUtil {
         dto.put("settle_abstract", "结算资金");
         // 结算批次号
         dto.put("settle_batch_no", "0");
+
         // 结算方式
         dto.put("settle_pattern", "P0");
         return dto.toJSONString();

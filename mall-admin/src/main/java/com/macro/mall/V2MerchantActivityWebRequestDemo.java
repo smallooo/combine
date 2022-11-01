@@ -4,8 +4,31 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.huifu.bspay.sdk.opps.core.enums.FunctionCodeEnum;
 import com.huifu.bspay.sdk.opps.core.request.BaseRequest;
 
+import static com.huifu.bspay.sdk.opps.core.enums.FunctionCodeEnum.V2_MERCHANT_ACTIVITY_ADD;
+
 public class V2MerchantActivityWebRequestDemo extends BaseRequest {
 
+
+//    public enum FunctionCodeEnum {
+//        V2_MERCHANT_URL_FORWARD("v2.merchant.url.forward", "商户统一进件(页面版)")
+//
+//        private final String code;
+//        private final String name;
+//
+//        private FunctionCodeEnum(String code, String name) {
+//            this.code = code;
+//            this.name = name;
+//        }
+//
+//        public String getCode() {
+//            return this.code;
+//        }
+//
+//        public String getName() {
+//            return this.name;
+//        }
+//
+//    }
     /**
      * 请求流水号
      */
@@ -32,7 +55,7 @@ public class V2MerchantActivityWebRequestDemo extends BaseRequest {
 
     @Override
     public FunctionCodeEnum getFunctionCode() {
-        return FunctionCodeEnum.V2_USER_BASICDATA_QUERY;
+        return V2_MERCHANT_ACTIVITY_ADD;
     }
 
     public void V2UserBasicdataQueryRequest() {

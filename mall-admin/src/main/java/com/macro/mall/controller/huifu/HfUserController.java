@@ -55,10 +55,17 @@ public class HfUserController {
         System.out.println("接口传入的数据:" + JSON.toJSONString(hfUserParam));
         // 开通HF账号  设置代理商角色
         try {
-            CommonResult umsAdmin = hfShanghuService.interateRegRequest(hfUserParam);
+            CommonResult result = hfShanghuService.interateRegRequest(hfUserParam);
+            if(result.getCode() == 200){
+
+            }else{
+
+            }
         } catch (Exception e) {
             return CommonResult.failed("开通上游商户失败");
         }
+
+
         // 开通个人商户信息 开通支付宝支付信息
         addresstoidMapper.insert(new Addresstoid());
 
@@ -81,11 +88,6 @@ public class HfUserController {
     @RequestMapping(value = "/delegatelist", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult delegateList(@Validated @RequestBody UmsAdminParam umsAdminParam) {
-       // CommonResult umsAdmin = hfShanghuService.integrateregrequest();
-//        if (umsAdmin == null) {
-//            return CommonResult.failed();
-//        }
-        //
         return CommonResult.success("");
     }
 
@@ -93,12 +95,6 @@ public class HfUserController {
     @RequestMapping(value = "/shanghulist", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult shanghuList(@Validated @RequestBody UmsAdminParam umsAdminParam) {
-        // CommonResult umsAdmin = hfShanghuService.integrateregrequest();
-//        if (umsAdmin == null) {
-//            return CommonResult.failed();
-//        }
-        //
-
         return CommonResult.success("");
     }
 
@@ -114,10 +110,17 @@ public class HfUserController {
     @RequestMapping(value = "/modifyShanghu", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult modifyShanghu(@Validated @RequestBody UmsAdminParam umsAdminParam) throws Exception {
-
         return CommonResult.success("");
     }
 
+    @ApiOperation(value = "支付宝实名申请查询")
+    @RequestMapping(value = "/alirealnamequery", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult alirealnamequery(@Validated @RequestBody UmsAdminParam umsAdminParam) throws Exception {
+        hfShanghuService.alirealnamequery();
+
+        return CommonResult.success("");
+    }
 
 
     @ApiOperation(value = "上传图片")
